@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/src/main/resources/static/layout/style.css">
+    <style>
+        /*----- Home dos Usuários -----*/
+            header {
+                display: grid;
+                align-items: center;
+                grid-template-columns: 3fr 4fr 1fr;
+                grid-template-areas:
+                    "header header header"
+                    "main main main"
+                    "footer footer footer";
+                background-color: green;
+                width: 100%;
+                height: 100px;
+                padding: 5px 0px;
+            }
+
+            .search {
+                padding: 10px;
+                border: 0px;
+                border-radius: 10px;
+                width: 250px;
+            }
+
+            button {
+                padding: 5px;
+                border: 0px;
+                border-radius: 5px;
+            }
+
+            button:hover {
+                cursor: pointer;
+                border: 2px solid black;
+                background-color: lightgray;
+            }
+
+            main {
+                width: 1200px;
+                background-color: gray;
+            }
+
+            .teste {
+                width: 500px;
+                height: 250px;
+            }
+
+            .imglogo {
+                background-color: darkgray;
+                height: 80px;
+                width: 120px;
+                margin: 10px;
+            }
+
+            .perfil {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 100px;
+                height: 100px;
+            }
+
+            .ftperfil {
+                background-color: azure;
+                width: 75px;
+                height: 75px;
+                border: 0px;
+                border-radius: 50px;
+            }
+
+            .linkperfil {
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img class="imglogo" src="/src/main/resources/static/Imagens/logo.png" alt="#">
+            </a>
+        </div>
+
+        <div>
+            <form action="/" method="POST">
+                <input class="search" type="text" placeholder="Pesquisar">
+
+                <button type="submit">Confirmar</button>
+            </form>
+        </div>
+
+        <div class="perfil">
+            <img class="ftperfil" src="#" alt="#">
+            <a class="linkperfil" href="#">Perfil</a>
+        </div>
+    </header>
+    <main>
+        <div class="teste">
+
+        </div>
+    </main>
+    <footer>
+        <div></div>
+    </footer>
+</body>
+</html>
