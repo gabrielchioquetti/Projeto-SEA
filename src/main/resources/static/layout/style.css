@@ -61,28 +61,30 @@ body{
 /*----- Menu principal do administrador -----*/
 #menu-principal {
     height: 100vh;
-    width: 200px; /* define largura do menu lateral */
+    width: 200px;
     background-color: #15521f;
     color: white;
     padding: 20px;
 }
 
-#ul-nav {
-    padding: 0;
-}
-
 .li-nav {
-    margin-top: 15px;
+    margin-top: 25px;
     list-style: none;
+    border-bottom: 1px solid white;
 }
 
-.li-nav a {
+.li-nav:last-child{
+    border-bottom: none;
+}
+
+.a-nav {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    
 }
 
-.li-nav a:hover {
+.a-nav:hover {
     text-decoration: underline;
 }
 
