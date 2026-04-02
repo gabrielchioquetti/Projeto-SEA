@@ -1,0 +1,70 @@
+/*----- Todo o Site -----*/
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+}
+
+/*----- Login ou index -----*/
+#main-login{
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+#login{
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    box-shadow: -4px 4px 8px black;
+    width: 500px;
+    height: 500px;
+    background-color: #32a041;
+    gap: 30px;
+    padding: 20px;
+    color: white;
+}
+#form-login{
+    display: grid;
+    gap: 10px;
+}
+.input-login{
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+.input-login:focus{
+    outline: 2px solid #1e6f2d;
+}
+#botao-login{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e6f2d;
+    color: white;
+}
+#botao-login:hover{
+    cursor: pointer;
+    background-color: #15521f;
+}
+
+/*----- Menu principal do administrador -----*/
+#menu-principal{
+    height: 100vh;
+    background-color: #15521f; 
+    color: white;
+}
+.li-nav{
+    margin-top: 10px;
+    list-style: none;
+}
