@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+    <div th:fragment="content">
+
+        <h3>Painel do Administrador</h3>
+
+        <div class="div-painel_adm">
+            <div class="quantidade-itens">
+                <h4>Alunos</h4>
+                <p>Quantidade</p>
+            </div>
+            <div class="quantidade-itens">
+                <h4>Professores</h4>
+                <p>Quantidade</p>
+            </div>
+            <div class="quantidade-itens">
+                <h4>Salas</h4>
+                <p>Quantidade</p>
+            </div>
+            <div class="quantidade-itens">
+                <h4>Aulas de Hoje</h4>
+                <p>Quantidade</p>
+            </div>
+        </div>
+
+        <h3>Próximas Aulas</h3>
+
+        <div id="div-proximas_aulas">
+
+            <div class="div-painel_adm titulo">
+                <div>Data</div>
+                <div>Hora</div>
+                <div>Professor</div>
+                <div>Sala</div>
+            </div>
+
+            <div class="div-painel_adm linha">
+                <div>Dia</div>
+                <div>Horário</div>
+                <div>Professor da aula</div>
+                <div>Sala</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</html>
