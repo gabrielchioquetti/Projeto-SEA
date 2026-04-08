@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="/src/main/resources/static/layout/style.css">
+    <link rel="stylesheet" th:href="@{/layout/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="logo">
             <a href="/">
-                <img class="imglogo" src="/src/main/resources/static/Imagens/logo.png" alt="#">
+                <img class="imglogo" th:src="@{/Imagens/logo.png}" alt="#">
             </a>
         </div>
 
