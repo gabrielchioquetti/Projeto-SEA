@@ -1,4 +1,4 @@
-package Projeto;
+package Projeto_SEA.IFSP.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
