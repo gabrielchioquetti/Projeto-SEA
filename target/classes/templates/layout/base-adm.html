@@ -8,6 +8,9 @@
 </head>
 <body>
     <main id="main-admin">
+        <div th:if="${mensagemSucesso}" class="toast-sucesso" id="toastMsg">
+            <span th:text="${mensagemSucesso}"></span>
+        </div>
 
         <div th:replace="layout/menu :: menu"></div>
 
@@ -16,5 +19,13 @@
         </div>
 
     </main>
+     <script>
+        setTimeout(() => {
+            const toast = document.getElementById('toastMsg');
+            if (toast) {
+                toast.style.display = "none";
+            }
+        }, 4500); // 4.5s
+    </script>
 </body>
 </html>

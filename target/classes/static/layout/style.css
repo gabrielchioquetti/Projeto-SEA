@@ -247,3 +247,64 @@ button:hover {
     width: 1200px;
     height: 750px;
 }
+
+/*----- Aviso -----*/
+.error {
+    color: #b00020;
+    background-color: #ffdddd;
+    border-left: 4px solid #b00020;
+    padding: 6px 10px;
+    margin: 5px 0 8px 0;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+/*----- Caixa do toast -----*/
+.toast-sucesso {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 15px;
+    opacity: 0;
+    pointer-events: none;
+    animation: toastFadeInOut 4s ease forwards;
+    z-index: 9999;
+}
+
+/*----- Animação do toast -----*/
+@keyframes toastFadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+.paginacao {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.paginacao ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+}
+
+.paginacao a {
+    padding: 8px 14px;
+    border: 1px solid #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.paginacao a.ativo {
+    background: #333;
+    color: #fff;
+}
