@@ -168,11 +168,47 @@ header {
     height: 50px;
 }
 
+.btn-container {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
 .ul-nav{
+    display: flex;             /* Alinha os itens lado a lado */
+    list-style: none;          /* Remove os pontos da lista */
+    margin: 0;
+    padding: 0;
+    justify-content: center;   /* Centraliza os itens (opcional) */
+    align-items: center;       /* Alinha verticalmente no centro */
+    gap: 20px;
+}
+
+.ul-nav li{
     display: flex;
     justify-content: space-around;
     align-items: center;
     list-style: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease-out;
+}
+
+.ul-nav li.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    display: none; /* Impede clique enquanto invisível */
+}
+
+.menu-item.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Habilita clique quando visível */
 }
 
 .search {
@@ -232,6 +268,24 @@ button:hover {
 
 .linksmenu {
     color: white;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.linksmenu::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #007bff; /* Cor da linha */
+    transition: width 0.3s;
+}
+
+.linksmenu:hover::after {
+    width: 100%;
 }
 
 /*----- Conteúdo Principal -----*/

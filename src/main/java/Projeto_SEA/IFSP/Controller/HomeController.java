@@ -13,14 +13,14 @@ public class HomeController {
         return "home.html";
     }
 
-    @GetMapping("/detalhesHr")
-    public String detalhesHorarios(){
-        return "detalhes-horarios";
+    @GetMapping("/horarios")
+    public String horarios(){
+        return "horarios";
     }
 
-    @GetMapping("/detalhesSala")
-    public String detalhesSalas(){
-        return "detalhes-salas";
+    @GetMapping("/salas")
+    public String salas(){
+        return "salas";
     }
 
     @GetMapping("/turmas")
