@@ -2,7 +2,8 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
     <div th:fragment="content">
         <div id="div-cadastrar_aluno">
-            <form th:action="@{/cadastrar/aluno}" th:method="POST" enctype="multipart/form-data" th:object="${aluno}">
+            <h2>Cadastro de Aluno</h2>
+            <form th:action="@{/cadastrar/aluno}" th:method="POST" enctype="multipart/form-data" th:object="${aluno}" id="form-cadastro_aluno">
                 <label for="nome_aluno">Nome:</label>
                 <div class="error" th:errors="*{nome}"></div>
                 <input id="nome_aluno" th:field="*{nome}" type="text" placeholder="Ex: João" required>

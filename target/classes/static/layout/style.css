@@ -145,6 +145,55 @@ body{
     text-align: center;
 }
 
+/*----- Formulário de cadastro de aluno -----*/
+#div-cadastrar_aluno {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding: 30px;
+    background-color: #0f3d17;
+    border-radius: 5px;
+    margin: 0 auto; /* centraliza na página */
+}
+
+#div-cadastrar_aluno h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#form-cadastro_aluno {
+    display: grid;
+    gap: 15px;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Inputs e selects */
+#form-cadastro_aluno input,
+#form-cadastro_aluno select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Botão */
+#form-cadastro_aluno button {
+    padding: 10px;
+    background-color: #1f7a2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#form-cadastro_aluno button:hover {
+    background-color: #259c3a;
+}
+
 /*----- Header -----*/
 header {
     position: absolute;
