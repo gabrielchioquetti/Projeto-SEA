@@ -1,70 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" th:href="@{/layout/style.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="/">
-                <img class="imglogo" th:src="@{/Imagens/logo.png}" alt="#">
-            </a>
-        </div>
-
-        <div>
-            <form action="/" method="POST">
-                <input class="search" type="text" placeholder="Pesquisar">
-
-                <button type="submit">Confirmar</button>
-            </form>
-        </div>
-
-        <div class="perfil">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle ftperfil"
-                viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                <path fill-rule="evenodd"
-                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-            </svg>
-            <a class="linksmenu" href="#">Perfil</a>
-        </div>
-    </header>
     <main>
-        <nav id="menu-horizontal">
-            <ul class="ul-nav">
-                <li class="">
-                    <a class="linksmenu" href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                        </svg>
-                    </a>
-                </li>
-                <li class="">
-                    <a class="linksmenu" href="#">Horários</a>
-                </li>
-                <li class="">
-                    <a class="linksmenu" href="#">Salas</a>
-                </li>
-                <li class="">
-                    <a class="linksmenu" href="#">Minhas Turmas</a>
-                </li>
-                <li class="">
-                    <a class="linksmenu" href="#">Sair</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="home">
-            <div class="conteudo">
-
+    <div class="flexC">
+        <div class="calendar">
+            <div class="header">
+                <button id="prev">&lt;</button>
+                <h2 id="month-year"></h2>
+                <button id="next">&gt;</button>
             </div>
+            <div class="weekdays">
+                <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+            </div>
+            <div id="days" class="days-grid"></div>
         </div>
+    </div>
     </main>
-    <footer>
-        <div></div>
-    </footer>
+
+    <script>
+    const daysContainer = document.getElementById("days");
+    const monthYearText = document.getElementById("month-year");
+    let date = new Date();
+
+    function renderCalendar() {
+    daysContainer.innerHTML = "";
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    
+    monthYearText.innerText = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(date);
+
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+
+    // Espaços vazios antes do primeiro dia do mês
+    for (let x = firstDayIndex; x > 0; x--) {
+        daysContainer.innerHTML += `<div></div>`;
+    }
+
+    // Dias do mês
+    for (let i = 1; i <= lastDay; i++) {
+        const isToday = i === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear() ? "today" : "";
+        daysContainer.innerHTML += `<div class="${isToday}">${i}</div>`;
+    }
+    }
+
+    document.getElementById("prev").onclick = () => { date.setMonth(date.getMonth() - 1); renderCalendar(); };
+    document.getElementById("next").onclick = () => { date.setMonth(date.getMonth() + 1); renderCalendar(); };
+
+    renderCalendar();
+    </script>
+    
 </body>
 </html>

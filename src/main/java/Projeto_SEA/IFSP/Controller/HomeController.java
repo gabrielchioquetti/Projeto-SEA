@@ -2,13 +2,30 @@ package Projeto_SEA.IFSP.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/home")
 public class HomeController {
     
-    @GetMapping("/home")
+    @GetMapping("/")
     public String homePage(){
         return "home.html";
+    }
+
+    @GetMapping("/detalhesHr")
+    public String detalhesHorarios(){
+        return "detalhes-horarios";
+    }
+
+    @GetMapping("/detalhesSala")
+    public String detalhesSalas(){
+        return "detalhes-salas";
+    }
+
+    @GetMapping("/turmas")
+    public String turmas(){
+        return "turmas";
     }
 
 }
