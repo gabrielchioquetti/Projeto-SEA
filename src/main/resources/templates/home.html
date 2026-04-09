@@ -20,38 +20,7 @@
     </div>
     </main>
 
-    <script>
-    const daysContainer = document.getElementById("days");
-    const monthYearText = document.getElementById("month-year");
-    let date = new Date();
+    <script th:src="@{/js/script.js}"></script>
 
-    function renderCalendar() {
-    daysContainer.innerHTML = "";
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    
-    monthYearText.innerText = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(date);
-
-    const firstDayIndex = new Date(year, month, 1).getDay();
-    const lastDay = new Date(year, month + 1, 0).getDate();
-
-    // Espaços vazios antes do primeiro dia do mês
-    for (let x = firstDayIndex; x > 0; x--) {
-        daysContainer.innerHTML += `<div></div>`;
-    }
-
-    // Dias do mês
-    for (let i = 1; i <= lastDay; i++) {
-        const isToday = i === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear() ? "today" : "";
-        daysContainer.innerHTML += `<div class="${isToday}">${i}</div>`;
-    }
-    }
-
-    document.getElementById("prev").onclick = () => { date.setMonth(date.getMonth() - 1); renderCalendar(); };
-    document.getElementById("next").onclick = () => { date.setMonth(date.getMonth() + 1); renderCalendar(); };
-
-    renderCalendar();
-    </script>
-    
 </body>
 </html>
