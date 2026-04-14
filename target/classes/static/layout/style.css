@@ -146,52 +146,61 @@ body{
 }
 
 /*----- Formulário de cadastro de aluno -----*/
-#div-cadastrar_aluno {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    padding: 30px;
-    background-color: #0f3d17;
-    border-radius: 5px;
-    margin: 0 auto;
-}
-
-#div-cadastrar_aluno h2 {
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#form-cadastro_aluno {
-    display: grid;
-    gap: 15px;
-    color: white;
-    font-weight: bold;
+.div-cadastrar{
     width: 100%;
-    max-width: 400px;
+    padding: 20px 40px;
+}
+
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #0f3d17;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.form-cadastro h2{
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 /* Inputs e selects */
-#form-cadastro_aluno input,
-#form-cadastro_aluno select {
+.form-cadastro label{
+    font-size: 14px;
+}
+
+.form-cadastro input{
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 6px;
     border: none;
+}
+
+.form-cadastro input:focus{
+    outline: none;
+    border: 2px solid #1f7a2e;
+    background-color: #f9f9f9;
 }
 
 /* Botão */
-#form-cadastro_aluno button {
-    padding: 10px;
-    background-color: #1f7a2e;
+.form-cadastro button {
+    margin-top: 10px;
+    padding: 12px;
+    background: linear-gradient(135deg, #1f7a2e, #259c3a);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
+    transition: 0.03s;
 }
 
-#form-cadastro_aluno button:hover {
-    background-color: #259c3a;
+.form-cadastro_ button:hover {
+    transform: scale(1.03);
 }
 
 /*----- Header -----*/
