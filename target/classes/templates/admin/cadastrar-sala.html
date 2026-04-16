@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+    <div th:fragment="content">
+        <div class="div-cadastrar">
+            <h2>Cadastro de Sala</h2>
+            <form th:action="@{/cadastrar/sala}" th:method="POST" th:object="${sala}" class="form-cadastro">
+                <label for="nome">Nome:</label>
+                <div class="error" th:errors="*{nome}"></div>
+                <input id="nome" th:field="*{nome}" type="text" placeholder="Ex: Sala 1" required>
+                <label for="capacidade">Capacidade:</label>
+                <div class="error" th:errors="*{capacidade}"></div>
+                <input id="capacidade" th:field="*{capacidade}" type="number" placeholder="Ex: 40" required>
+                <label for="tipo">Tipo:</label>
+                <select name="tipo" id="tipo">
+                    <option value="">Selecione...</option>
+                    <option value="#">#</option>
+                </select>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</html>
