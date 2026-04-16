@@ -186,6 +186,10 @@ body{
     background-color: #f9f9f9;
 }
 
+select{
+ padding: 10px;   
+}
+
 /* Botão */
 .form-cadastro button {
     margin-top: 10px;

@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "salas")
@@ -22,7 +24,8 @@ public class Sala {
     private String nome;
 
     @Column(name = "capacidade")
-    @NotBlank(message =  "Capacidade é obrigatório")
+    @NotNull
+    @Min(1)
     @Max(40)
     private int capacidade;
 

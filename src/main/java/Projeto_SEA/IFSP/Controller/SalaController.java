@@ -19,7 +19,7 @@ public class SalaController {
     private SalaRepository salaRepository;
     
     @GetMapping("/cadastrar/sala")
-    public String cadastrarSala (){
+    public String cadastrarSala (Sala sala){
         return "admin/cadastrar-sala";
     }
 
