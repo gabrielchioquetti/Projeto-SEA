@@ -253,6 +253,7 @@ header {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s ease-out;
+    width: 100%;
 }
 
 .ul-nav li.show {
