@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <main>
+    <div class="flexC">
+        <div class="calendar">
+            <div class="header">
+                <button id="prev">&lt;</button>
+                <h2 id="month-year"></h2>
+                <button id="next">&gt;</button>
+            </div>
+            <div class="weekdays">
+                <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+            </div>
+            <div id="days" class="days-grid"></div>
+        </div>
+    </div>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

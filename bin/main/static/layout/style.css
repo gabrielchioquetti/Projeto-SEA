@@ -1,0 +1,543 @@
+/*----- Todo o Site -----*/
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+}
+
+/*----- Login ou index -----*/
+#main-login{
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+#login{
+    height: auto;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    box-shadow: -4px 4px 8px black;
+    width: 400px;
+    height: 500px;
+    background-color: #32a041;
+    gap: 30px;
+    padding: 20px;
+    color: white;
+}
+#form-login{
+    display: grid;
+    gap: 10px;
+}
+.input-login{
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+.input-login:focus{
+    outline: 2px solid #1e6f2d;
+}
+#botao-login{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e6f2d;
+    color: white;
+}
+#botao-login:hover{
+    cursor: pointer;
+    background-color: #15521f;
+}
+
+/*----- MENU -----*/
+#menu-principal {
+    height: 100%;
+    width: 220px;
+    background-color: #15521f;
+    color: white;
+    padding: 20px;
+}
+
+.li-nav {
+    margin-top: 20px;
+    list-style: none;
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+}
+
+.li-nav:last-child{
+    border-bottom: none;
+}
+
+.a-nav {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.a-nav:hover {
+    text-decoration: underline;
+}
+
+/*----- Layout do Admin -----*/
+#main-admin{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 100vh;
+    gap: 60px;
+}
+
+/*----- Painel do Admin -----*/
+#conteudo-admin{
+    padding: 20px;
+}
+
+.div-painel_adm{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin: 20px 0;
+}
+
+.quantidade-itens{
+    border: 1px solid black;
+    padding: 15px;
+    background-color: #15521f;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+/*----- MENU -----*/
+/* PRÓXIMAS AULAS */
+#div-proximas_aulas{
+    margin-top: 10px;
+}
+
+.titulo{
+    background-color: #0f3d17;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+}
+
+.linha{
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+
+.linha:last-child{
+    border-radius: 0 0 5px 5px;
+}
+
+.div-painel_adm div{
+    padding: 10px;
+    text-align: center;
+}
+
+/*----- Formulário de cadastro de aluno -----*/
+.div-cadastrar{
+    width: 100%;
+    padding: 20px 40px;
+}
+
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #0f3d17;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.form-cadastro h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Inputs e selects */
+.form-cadastro label{
+    font-size: 14px;
+}
+
+.form-cadastro input{
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+.form-cadastro input:focus{
+    outline: none;
+    border: 2px solid #1f7a2e;
+    background-color: #f9f9f9;
+}
+
+select{
+ padding: 10px;   
+}
+
+/* Botão */
+.form-cadastro button {
+    margin-top: 10px;
+    padding: 12px;
+    background: linear-gradient(135deg, #1f7a2e, #259c3a);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.03s;
+}
+
+.form-cadastro_ button:hover {
+    transform: scale(1.03);
+}
+
+/*----- Header -----*/
+header {
+    position: absolute;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 3fr 4fr 1fr;
+    background-color: green;
+    width: 100%;
+    height: 153px;
+    padding: 5px 0px;
+}
+
+.menu-horizontal{
+    width: 266.5%;
+    background-color: #15521f;
+}
+
+.bi-list{
+    color: white;
+    width: 50px;
+    height: 50px;
+}
+
+.btn-container {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.ul-nav{
+    display: flex;             /* Alinha os itens lado a lado */
+    list-style: none;          /* Remove os pontos da lista */
+    margin: 0;
+    padding: 0;
+    justify-content: center;   /* Centraliza os itens (opcional) */
+    align-items: center;       /* Alinha verticalmente no centro */
+    gap: 20px;
+}
+
+.ul-nav li{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease-out;
+    width: 100%;
+}
+
+.ul-nav li.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    display: none; /* Impede clique enquanto invisível */
+}
+
+.menu-item.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Habilita clique quando visível */
+}
+
+.search {
+    padding: 10px;
+    border: 0px;
+    border-radius: 10px;
+    width: 250px;
+}
+
+button {
+    padding: 5px;
+    border: 0px;
+    border-radius: 5px;
+}
+
+button:hover {
+    cursor: pointer;
+    border: 2px solid black;
+    background-color: lightgray;
+}
+
+
+.teste {
+    width: 500px;
+    height: 250px;
+}
+
+.imglogo {
+    background-color: darkgray;
+    height: 80px;
+    width: 120px;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+.perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+}
+
+.ftperfil {
+    background-color: #15521f;
+    width: 75px;
+    height: 75px;
+    border: 0px;
+    border-radius: 50px;
+    margin-bottom: 3px;
+}
+
+.bi-person-circle{
+    color: white;
+}
+
+.linksmenu {
+    color: white;
+    position: relative;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.linksmenu::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #007bff; /* Cor da linha */
+    transition: width 0.3s;
+}
+
+.linksmenu:hover::after {
+    width: 100%;
+}
+
+/*----- Conteúdo Principal -----*/
+
+#container{
+    display: flex;
+    justify-content: center;
+}
+
+.conteudo{
+    background-color: #ddd;
+    box-shadow: 1px 5px 5px black;
+    width: 1200px;
+    min-height: 100vh;
+}
+
+/*----- Home -----*/
+
+.flexC{
+    display: flex;
+    justify-content: center;
+}
+
+.calendar {
+    color: white;
+    margin-top: 170px;
+    width: 750px;
+    font-family: sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    padding: 10px;
+    background-color: #303030;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#month-year {
+  text-transform: capitalize;
+}
+
+.weekdays,
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.weekdays div {
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+.days-grid div {
+    padding: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.days-grid div:hover {
+    background: #15521f;
+}
+
+.today {
+    background: green;
+    color: white;
+}
+
+/*----- Aviso -----*/
+.error {
+    color: #b00020;
+    background-color: #ffdddd;
+    border-left: 4px solid #b00020;
+    padding: 6px 10px;
+    margin: 5px 0 8px 0;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+/*----- Caixa do toast -----*/
+.toast-sucesso {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 15px;
+    opacity: 0;
+    pointer-events: none;
+    animation: toastFadeInOut 4s ease forwards;
+    z-index: 9999;
+}
+
+/*----- Animação do toast -----*/
+@keyframes toastFadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+.paginacao {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.paginacao ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+}
+
+.paginacao a {
+    padding: 8px 14px;
+    border: 1px solid #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.paginacao a.ativo {
+    background: #333;
+    color: #fff;
+}
+
+/*----- Aviso -----*/
+.error {
+    color: #b00020;
+    background-color: #ffdddd;
+    border-left: 4px solid #b00020;
+    padding: 6px 10px;
+    margin: 5px 0 8px 0;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+/*----- Caixa do toast -----*/
+.toast-sucesso {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 15px;
+    opacity: 0;
+    pointer-events: none;
+    animation: toastFadeInOut 4s ease forwards;
+    z-index: 9999;
+}
+
+/*----- Animação do toast -----*/
+@keyframes toastFadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+.paginacao {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.paginacao ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+}
+
+.paginacao a {
+    padding: 8px 14px;
+    border: 1px solid #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.paginacao a.ativo {
+    background: #333;
+    color: #fff;
+}
