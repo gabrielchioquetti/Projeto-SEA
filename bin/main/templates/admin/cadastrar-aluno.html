@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+    <div th:fragment="content">
+        <div class="div-cadastrar">
+            <h2>Cadastro de Aluno</h2>
+            <form th:action="@{/cadastrar/aluno}" th:method="POST" enctype="multipart/form-data" th:object="${aluno}" class="form-cadastro">
+                <label for="nome_aluno">Nome:</label>
+                <div class="error" th:errors="*{nome}"></div>
+                <input id="nome_aluno" th:field="*{nome}" type="text" placeholder="Ex: João" required>
+                <label for="email_aluno">E-mail:</label>
+                <div class="error" th:errors="*{email}"></div>
+                <input id="email_aluno" th:field="*{email}" type="email" placeholder="Ex: aluno.exemplo@aluno.ifsp.edu.br" required>
+                <label for="prontuario_aluno">Prontuário:</label>
+                <div class="error" th:errors="*{prontuario}"></div>
+                <input id="prontuario_aluno" th:field="*{prontuario}" type="text" placeholder="EX: it3020101" required>
+                <label for="senha_aluno">Senha:</label>
+                <div class="error" th:errors="*{senha}"></div>
+                <input id="senha_aluno" th:field="*{senha}" type="password" placeholder="Ex: Escolhasua1234@" required>
+                <label for="upload">Imagem:</label>
+                <div class="error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
+                <input id="upload" name="file" type="file" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</html>

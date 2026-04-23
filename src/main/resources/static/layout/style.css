@@ -194,6 +194,10 @@ body{
     background-color: #f9f9f9;
 }
 
+select{
+ padding: 10px;   
+}
+
 /* Botão */
 .form-cadastro button {
     margin-top: 10px;
@@ -257,6 +261,7 @@ header {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s ease-out;
+    width: 100%;
 }
 
 .ul-nav li.show {
