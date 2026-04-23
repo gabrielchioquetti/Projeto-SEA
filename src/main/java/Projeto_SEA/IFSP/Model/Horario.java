@@ -1,128 +1,111 @@
 package Projeto_SEA.IFSP.Model;
 
-import java.sql.Time;
 import java.time.LocalTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-@Table(name = "horarios")
 public class Horario {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_horario")
-    private Long id_horario;
+    @GeneratedValue
+    private Long id;
 
-    @Column(name = "periodo")
-    @NotBlank
-    private String periodo;
+    private String diaSemana;
+    private LocalTime horaInicio;
+    private LocalTime horaFim;
 
-    @Column(name = "p_aula")
-    @NotNull
-    private LocalTime p_aula;
+    @ManyToOne
+    private Turma turma;
 
-    @Column(name = "sg_aula")
-    @NotNull
-    private LocalTime sg_aula;
+    @ManyToOne
+    private Disciplina disciplina;
 
-    @Column(name = "t_aula")
-    @NotNull
-    private LocalTime t_aula;
+    @ManyToOne
+    private Professor professor;
 
-    @Column(name = "qa_aula")
-    @NotNull
-    private LocalTime qa_aula;
-
-    @Column(name = "qi_aula", nullable = true)
-    private LocalTime qi_aula;
-
-    @Column(name = "sx_aula", nullable = true)
-    private LocalTime sx_aula;
+    @ManyToOne
+    private Sala sala;
 
      public Horario(){
 
     }
 
-    public Horario(Long id_horario, String periodo, LocalTime p_aula, LocalTime sg_aula, LocalTime t_aula, LocalTime qa_aula, LocalTime qi_aula, LocalTime sx_aula){
-        this.id_horario=id_horario;
-        this.periodo=periodo;
-        this.p_aula=p_aula;
-        this.sg_aula=sg_aula;
-        this.t_aula=t_aula;
-        this.qa_aula=qa_aula;
-        this.qi_aula=qi_aula;
-        this.sx_aula=sx_aula;
-
+    public Horario(Long id, String diaSemana, LocalTime horaInicio, LocalTime horaFim, Turma turma, Disciplina disciplina, Professor professor, Sala sala){
+        this.id=id;
+        this.diaSemana=diaSemana;
+        this.horaInicio=horaInicio;
+        this.horaFim=horaFim;
+        this.turma=turma;
+        this.disciplina=disciplina;
+        this.professor=professor;
+        this.sala=sala;
     }
 
-    public Long getId_horario() {
-        return id_horario;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_horario(Long id_horario) {
-        this.id_horario = id_horario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getPeriodo() {
-        return periodo;
+    public String getDiaSemana() {
+        return diaSemana;
     }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public void setDiaSemana(String diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
-    public LocalTime getP_aula() {
-        return p_aula;
+    public LocalTime getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setP_aula(LocalTime p_aula) {
-        this.p_aula = p_aula;
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public LocalTime getSg_aula() {
-        return sg_aula;
+    public LocalTime getHoraFim() {
+        return horaFim;
     }
 
-    public void setSg_aula(LocalTime sg_aula) {
-        this.sg_aula = sg_aula;
+    public void setHoraFim(LocalTime horaFim) {
+        this.horaFim = horaFim;
     }
 
-    public LocalTime getT_aula() {
-        return t_aula;
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setT_aula(LocalTime t_aula) {
-        this.t_aula = t_aula;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
-    public LocalTime getQa_aula() {
-        return qa_aula;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setQa_aula(LocalTime qa_aula) {
-        this.qa_aula = qa_aula;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
-    public LocalTime getQi_aula() {
-        return qi_aula;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setQi_aula(LocalTime qi_aula) {
-        this.qi_aula = qi_aula;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
-    public LocalTime getSx_aula() {
-        return sx_aula;
+    public Sala getSala() {
+        return sala;
     }
 
-    public void setSx_aula(LocalTime sx_aula) {
-        this.sx_aula = sx_aula;
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 }

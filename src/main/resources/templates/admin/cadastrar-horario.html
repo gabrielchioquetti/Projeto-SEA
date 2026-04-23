@@ -4,37 +4,33 @@
         <div class="div-cadastrar">
             <h2>Cadastro de Sala</h2>
             <form th:action="@{/cadastrar/horario}" th:method="POST" th:object="${horario}" class="form-cadastro">
-                <label for="periodo">Período:</label>
-                <div class="error" th:errors="*{periodo}"></div>
-                <select th:field="*{periodo}" id="periodo">
-                    <option value="">Selecione...</option>
-                    <option th:value="matutino">Matutino</option>
-                    <option th:value="vespertino">Vespertino</option>
-                    <option th:value="noturno">Noturno</option>
-                </select>
-                <label for="p_aula">1°Aula:</label>
-                <input id="p_aula" th:field="*{p_aula}" type="time" required>
-                <div class="error" th:errors="*{p_aula}"></div>
+                <label for="diaSemana">Período:</label>
+                <input id="diaSemana" th:field="*{diaSemana}" type="text" required placeholder="Ex: Seg">
+                <div class="error" th:errors="*{diaSemana}"></div>
 
-                <label for="sg_aula">2° Aula:</label>
-                <input id="sg_aula" th:field="*{sg_aula}" type="time" required>
-                <div class="error" th:errors="*{sg_aula}"></div>
+                <label for="horaInicio">Inicio:</label>
+                <input id="horaInicio" th:field="*{horaInicio}" type="time" required>
+                <div class="error" th:errors="*{horaInicio}"></div>
 
-                <label for="t_aula">3° Aula:</label>
-                <input id="t_aula" th:field="*{t_aula}" type="time" required>
-                <div class="error" th:errors="*{t_aula}"></div>
+                <label for="horaFim">Fim:</label>
+                <input id="horaFim" th:field="*{horaFim}" type="time" required>
+                <div class="error" th:errors="*{horaFim}"></div>
 
-                <label for="qa_aula">4° Aula:</label>
-                <input id="qa_aula" th:field="*{qa_aula}" type="time" required>
-                <div class="error" th:errors="*{qa_aula}"></div>
+                <label for="turma">Turma:</label>
+                <input id="turma" th:field="*{turma}" type="text" required>
+                <div class="error" th:errors="*{turma}"></div>
 
-                <label for="qi_aula">5° Aula:</label>
-                <input id="qi_aula" th:field="*{qi_aula}" type="time">
-                <div class="error" th:errors="*{qi_aula}"></div>
+                <label for="disciplina">Disciplina:</label>
+                <input id="disciplina" th:field="*{disciplina}" type="text" required>
+                <div class="error" th:errors="*{disciplina}"></div>
 
-                <label for="sx_aula">6° Aula:</label>
-                <input id="sx_aula" th:field="*{sx_aula}" type="time">
-                <div class="error" th:errors="*{sx_aula}"></div>
+                <label for="professor">Professor:</label>
+                <input id="professor" th:field="*{professor}" type="text">
+                <div class="error" th:errors="*{professor}"></div>
+
+                <label for="sala">Sala:</label>
+                <input id="sala" th:field="*{sala}" type="text">
+                <div class="error" th:errors="*{sala}"></div>
 
                 <button type="submit">Cadastrar</button>
             </form>

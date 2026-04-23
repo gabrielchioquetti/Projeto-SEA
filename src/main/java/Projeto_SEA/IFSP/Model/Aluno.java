@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -39,7 +41,11 @@ public class Aluno {
 
     @Column(name = "img_aluno")
     private String img_aluno;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "id_turma")
+    private Turma turma;
+
     @Transient
     private MultipartFile file;
 
@@ -47,13 +53,14 @@ public class Aluno {
 
     }
     
-    public Aluno(long id_aluno, String nome, String email, String prontuario, String senha, String img_aluno){
+    public Aluno(long id_aluno, String nome, String email, String prontuario, String senha, String img_aluno, Turma turma){
         this.id_aluno = id_aluno;
         this.nome = nome;
         this.email = email;
         this.prontuario = prontuario;
         this.senha = senha;
         this.img_aluno = img_aluno;
+        this.turma=turma;
     }
 
     public long getId_aluno() {
@@ -91,5 +98,11 @@ public class Aluno {
     }
     public void setImg_aluno(String img_aluno) {
         this.img_aluno = img_aluno;
+    }
+    public Turma getTurma() {
+        return turma;
+    }
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 }
