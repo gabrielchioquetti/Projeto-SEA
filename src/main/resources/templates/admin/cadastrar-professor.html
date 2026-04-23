@@ -5,23 +5,30 @@
             <h2>Cadastro de Professor</h2>
             <form th:action="@{/cadastrar/professor}" th:method="POST" enctype="multipart/form-data" th:object="${professor}" class="form-cadastro">
                 <label for="nome_professor">Nome:</label>
-                <div class="error" th:errors="*{nome}"></div>
+                <div class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                 <input id="nome_professor" th:field="*{nome}" type="text" placeholder="Ex: João" required>
                 <label for="email_professor">E-mail:</label>
-                <div class="error" th:errors="*{email}"></div>
+                <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 <input id="email_professor" th:field="*{email}" type="email" placeholder="Ex: professor.exemplo@professor.ifsp.edu.br" required>
-                <label for="prontuario_professor">Protuário:</label>
-                <div class="error" th:errors="*{prontuario}"></div>
+                <label for="prontuario_professor">Prontuário:</label>
+                <div class="error" th:if="${#fields.hasErrors('prontuario')}" th:errors="*{prontuario}"></div>
                 <input id="prontuario_professor" th:field="*{prontuario}" type="text" placeholder="EX: it3020101" required>
                 <label for="area">Área de atuação:</label>
-                <div class="error" th:errors="*{area}"></div>
+                <div class="error" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></div>
                 <input id="area" th:field="*{area}" type="text" placeholder="EX: Redes" required>
-                <label for="area">Senha:</label>
-                <div class="error" th:errors="*{senha}"></div>
+                <label for="senha_professor">Senha:</label>
+                <div class="error" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
                 <input id="senha_professor" th:field="*{senha}" type="password" placeholder="Ex: Escolhasua1234@" required>
                 <label for="upload">Imagem:</label>
                 <div class="error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
                 <input id="upload" name="file" type="file" required>
+                <label>Disciplinas:</label>
+                <div class="error" th:if="${#fields.hasErrors('disciplinas')}" th:errors="*{disciplinas}">
+                </div>
+                <div th:each="d : ${disciplinas}">
+                    <input type="checkbox" th:id="'disc_' + ${d.idDisciplina}" th:field="*{disciplinas}" th:value="${d.idDisciplina}"/>
+                    <label th:for="'disc_' + ${d.idDisciplina}" th:text="${d.nome}"></label>
+                </div>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>

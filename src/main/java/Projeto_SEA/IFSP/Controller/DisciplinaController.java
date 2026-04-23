@@ -2,6 +2,7 @@ package Projeto_SEA.IFSP.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,8 @@ public class DisciplinaController {
     private DisciplinaRepository disciplinaRepository;
 
     @GetMapping("/cadastrar/disciplina")
-    public String cadastrarDisciplina(Disciplina disciplina){
+    public String cadastrarDisciplina(Model model){
+        model.addAttribute("disciplina", new Disciplina());
         return "admin/cadastrar-disciplina";
     }
 
@@ -29,7 +31,8 @@ public class DisciplinaController {
         if (result.hasErrors()) {
             return "admin/cadastrar-disciplina";
         }
-
+        
+        disciplina.setNome(disciplina.getNome().trim());
         disciplinaRepository.save(disciplina);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Disciplina salva com sucesso!");
         return "redirect:/cadastrar/disciplina";

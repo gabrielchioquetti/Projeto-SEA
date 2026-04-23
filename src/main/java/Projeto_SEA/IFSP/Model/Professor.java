@@ -1,5 +1,7 @@
 package Projeto_SEA.IFSP.Model;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Column;
@@ -7,10 +9,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "professores")
@@ -47,12 +53,20 @@ public class Professor {
     @Transient
     private MultipartFile file;
 
+    @ManyToMany
+    @JoinTable(
+        name = "disciplina_professor",
+        joinColumns = @JoinColumn(name = "id_professor"),
+        inverseJoinColumns = @JoinColumn(name = "id_disciplina")
+    )
+    @NotEmpty(message = "Selecione pelo menos uma disciplina")
+    private List<Disciplina> disciplinas;
+
     public Professor(){
 
     }
 
-    public Professor(Long id_professor, String nome, String email, String prontuario, String senha, String area, String img_professor){
-        this.id_professor = id_professor;
+    public Professor(String nome, String email, String prontuario, String senha, String area, String img_professor){
         this.nome = nome;
         this.email = email;
         this.prontuario = prontuario;
@@ -123,5 +137,13 @@ public class Professor {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 }
