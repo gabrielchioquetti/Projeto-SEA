@@ -38,6 +38,10 @@ public class Disciplina {
     @JsonIgnore
     private List<Professor> professores = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "disciplinas")
+    @JsonIgnore
+    private List<Turma> turmas = new ArrayList<>();
+
     public Disciplina() {}
 
     public Disciplina(String nome, Integer carga) {

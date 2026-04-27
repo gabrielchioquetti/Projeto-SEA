@@ -1,5 +1,6 @@
 package Projeto_SEA.IFSP.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -7,6 +8,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
@@ -28,7 +31,12 @@ private String curso;
 private Sala sala;
 
 @ManyToMany
-private List<Disciplina> disciplinas;
+@JoinTable(
+    name = "turma_disciplina",
+    joinColumns = @JoinColumn(name = "turma_id"),
+    inverseJoinColumns = @JoinColumn(name = "disciplina_id")
+)
+private List<Disciplina> disciplinas = new ArrayList<>();
 
 
 public Turma() {

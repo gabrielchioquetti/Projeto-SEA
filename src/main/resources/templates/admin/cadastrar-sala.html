@@ -10,12 +10,18 @@
                 <label for="capacidade">Capacidade:</label>
                 <div class="error" th:errors="*{capacidade}"></div>
                 <input id="capacidade" th:field="*{capacidade}" type="number" placeholder="Ex: 40" required>
-                <label for="tipo">Tipo:</label>
-                <select name="tipo" id="tipo">
-                    <option value="">Selecione...</option>
-                    <option value="#">#</option>
+                <label for="tipo">Tipo da Sala:</label>
+
+                <select id="tipo" th:field="*{tipo}">
+                    <option value="">Selecione</option>
+
+                    <option th:each="t : ${T(Projeto_SEA.IFSP.Model.TipoSala).values()}"
+                            th:value="${t}"
+                            th:text="${t}">
+                    </option>
                 </select>
-                <a class="a-nav" h:href="@{/cadastrar/tiposala}">Cadastrar Tipo de Sala</a>
+
+                <div class="error" th:errors="*{tipo}"></div>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>

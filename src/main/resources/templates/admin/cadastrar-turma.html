@@ -9,7 +9,12 @@
                 <div class="error" th:errors="*{nome}"></div>
 
                 <label for="periodo">Período:</label>
-                <input id="periodo" th:field="*{periodo}" type="text" placeholder="Ex: Matutino" required>
+                <select id="periodo" th:field="*{periodo}">
+                    <option th:each="p : ${periodos}" 
+                            th:value="${p}" 
+                            th:text="${p}">
+                    </option>
+                </select>
                 <div class="error" th:errors="*{periodo}"></div>
 
                 <label for="curso">Curso:</label>
@@ -17,11 +22,27 @@
                 <div class="error" th:errors="*{curso}"></div>
 
                 <label for="sala">Sala:</label>
-                <input id="sala" th:field="*{sala}" type="text" placeholder="Ex: Lab 01" required>
+                <select id="sala" th:field="*{sala.id_sala}">
+                    <option value="">Selecione</option>
+                    <option th:each="s : ${salas}"
+                            th:value="${s.id_sala}"
+                            th:text="${s.nome}">
+                    </option>
+                </select>
                 <div class="error" th:errors="*{sala}"></div>
 
-                <label for="disciplinas">Disciplinas:</label>
-                <input id="disciplinas" th:field="*{disciplinas}" type="text" required>
+                <label>Disciplinas:</label>
+                <div th:each="d : ${disciplinas}" class="form-check">
+                    <input class="form-check-input"
+                        type="checkbox"
+                        th:field="*{disciplinas}"
+                        th:value="${d.idDisciplina}"
+                        th:id="${'disciplina_' + d.idDisciplina}">
+                    <label class="form-check-label"
+                        th:for="${'disciplina_' + d.idDisciplina}"
+                        th:text="${d.nome}">
+                    </label>
+                </div>
                 <div class="error" th:errors="*{disciplinas}"></div>
 
                 <button type="submit">Cadastrar</button>

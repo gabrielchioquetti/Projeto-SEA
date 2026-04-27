@@ -5,11 +5,11 @@
             <h2>Cadastro de Disciplinas</h2>
             <form th:action="@{/cadastrar/disciplina}" th:method="POST" th:object="${disciplina}" class="form-cadastro">
                 <label for="nome_disciplina">Nome:</label>
-                <div class="error" th:errors="*{nome}"></div>
+                <div class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                 <input id="nome_disciplina" th:field="*{nome}" type="text" placeholder="Ex: Redes" required>
                 <label for="carga_horaria">Carga horária:</label>
-                <div class="error" th:errors="*{carga}"></div>
-                <input id="carga_horaria" th:field="*{carga}" type="number" placeholder="Ex: 36" required>
+                <div class="error" th:if="${#fields.hasErrors('carga')}" th:errors="*{carga}"></div>
+                <input id="carga_horaria" th:field="*{carga}" type="number" placeholder="Ex: 36" min="1" step="1" required>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
