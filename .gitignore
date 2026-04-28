@@ -12,7 +12,7 @@ out/
 
 # IDEs
 .idea/
-.vscode/
+.vscode/settings.json
 *.iml
 
 # Sistema operacional
