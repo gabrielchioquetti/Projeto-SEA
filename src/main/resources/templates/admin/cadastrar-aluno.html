@@ -19,6 +19,16 @@
                 <label for="upload">Imagem:</label>
                 <div class="error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
                 <input id="upload" name="file" type="file" required>
+                <label for="turma">Turma:</label>
+                <div class="error" th:errors="*{turma}"></div>
+
+                <select id="turma" th:field="*{turma}" required>
+                    <option value="">Selecione uma turma</option>
+                    <option th:each="turma : ${turmas}"
+                            th:value="${turma.id}"
+                            th:text="${turma.nome}">
+                    </option>
+                </select>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>

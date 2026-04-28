@@ -3,6 +3,7 @@ package Projeto_SEA.IFSP.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Projeto_SEA.IFSP.Model.Aluno;
+import Projeto_SEA.IFSP.Model.Turma;
 import Projeto_SEA.IFSP.Repository.AlunoRepository;
+import Projeto_SEA.IFSP.Repository.TurmaRepository;
 import Projeto_SEA.IFSP.Service.FileStorageService;
 import jakarta.validation.Valid;
 
@@ -24,13 +27,19 @@ public class AlunoController {
 
     @Autowired
     private AlunoRepository alunoRepository;
+    
+    @Autowired
+    private TurmaRepository turmaRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     
     @GetMapping("/cadastrar/aluno")
-    public String cadastrarAluno(Aluno aluno){
+    public String cadastrarAluno(Aluno aluno, Model model){
+        model.addAttribute("aluno", new Aluno());
+        model.addAttribute("turmas", turmaRepository.findAll());
+
         return "admin/cadastrar-aluno";
     }
 
@@ -56,6 +65,16 @@ public class AlunoController {
             aluno.setImg_aluno("/uploads/" + imagem);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensagemErro", "Erro ao salvar imagem: " + e.getMessage());
+            return "redirect:/cadastrar/aluno";
+        }
+
+        if (aluno.getTurma() != null && aluno.getTurma().getId() != null) {
+            Turma turma = turmaRepository.findById(aluno.getTurma().getId())
+                    .orElse(null);
+
+            aluno.setTurma(turma);
+        } else {
+            redirectAttributes.addFlashAttribute("mensagemErro", "Selecione uma turma!");
             return "redirect:/cadastrar/aluno";
         }
         
