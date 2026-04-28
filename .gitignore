@@ -1,0 +1,20 @@
+# Build (Maven / Gradle)
+target/
+build/
+out/
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
