@@ -7,4 +7,5 @@ import Projeto_SEA.IFSP.Model.Aluno;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long>{
+    Aluno findByEmail(String email);
 }

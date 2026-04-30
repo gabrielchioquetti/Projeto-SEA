@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+
+<head>
+    <title>Conta</title>
+</head>
+
+<body>
+    <main>
+        <div class="flexC">
+            <div class="conta">
+                <div class="perfilcontainer">
+                    <div class="user">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person-circle userimg" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg>
+                    </div>
+                    <div class="msgperfil">
+                        <h2>Olá, *{.nome}!</h2>
+                    </div>
+                </div>
+                <div class="infos">
+                    <div class="info">
+                        <h3>Nome:</h3>
+                    </div>
+                    <div class="info">
+                        <h3>Prontuário:</h3>
+                    </div>
+                    <div class="info">
+                        <h3>Email:</h3>
+                    </div>
+                    <div class="info">
+                        <h3>Turma:</h3>
+                    </div>
+                </div>
+                <div class="aulas">
+                    <table border="2" class="table">
+                        <h2>Aulas</h2>
+                        <tr>
+                            <th>SEG</th>
+                            <th>TER</th>
+                            <th>QUA</th>
+                            <th>QUI</th>
+                            <th>SEX</th>
+                        </tr>
+                        <tr>
+                            <td>#</td>
+                            <td>#</td>
+                            <td>#</td>
+                            <td>#</td>
+                            <td>#</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

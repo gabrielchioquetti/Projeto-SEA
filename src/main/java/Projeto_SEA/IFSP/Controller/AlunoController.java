@@ -1,5 +1,6 @@
 package Projeto_SEA.IFSP.Controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,17 @@ public class AlunoController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
+    @GetMapping("/perfil/aluno")
+    public String perfilAluno(// Model model,
+    //  Principal principal
+    ){
+       // String email = principal.getName();
+       // Aluno aluno = alunoRepository.findByEmail(email);
+       // model.addAttribute("aluno", aluno);
+        return "perfil/aluno";
+    }
 
     
     @GetMapping("/cadastrar/aluno")
