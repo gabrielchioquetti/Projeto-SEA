@@ -2,6 +2,7 @@ package Projeto_SEA.IFSP.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +35,14 @@ public class SalaController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Sala salva com sucesso!");
 
         return "redirect:/dashboard";
+    }
+
+    @GetMapping("/listar/salas")
+    public String listarSalas(Model model){
+
+        model.addAttribute("salas", salaRepository.findAll());
+        
+        return "admin/listar-salas";
     }
 
 }

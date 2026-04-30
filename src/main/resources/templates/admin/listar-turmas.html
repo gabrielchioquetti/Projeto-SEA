@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+    <div th:fragment="content">
+        <h3>Turmas</h3>
+
+        <div class="tabela tabela-header">
+            <div>Nome</div>
+            <div>Curso</div>
+            <div>Periodo</div>
+            <div>Sala</div>
+            <div>Ações</div>
+        </div>
+
+        <div th:each="turma : ${turmas}" class="tabela tabela-linha">
+            <div th:text="${turma.nome}"></div>
+            <div th:text="${turma.curso}"></div>
+            <div th:text="${turma.periodo}"></div>
+            <div th:text="${turma.sala.nome}"></div>
+            <div>
+                <button>Editar</button>
+                <button>Deletar</button>
+            </div>
+        </div>
+    </div>
+</html>

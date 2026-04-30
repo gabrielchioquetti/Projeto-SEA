@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+    <div th:fragment="content">
+        <h3>Alunos</h3>
+
+        <div class="tabela tabela-header">
+            <div>Foto</div>
+            <div>Prontuário</div>
+            <div>Nome</div>
+            <div>Email</div>
+            <div>Turma</div>
+            <div>Ações</div>
+        </div>
+
+        <div th:each="aluno : ${alunos}" class="tabela tabela-linha">
+            <div>
+                <img th:src="@{${aluno.img_aluno}}" width="40" alt="Foto de perfil do aluno">
+            </div>
+            <div th:text="${aluno.prontuario}"></div>
+            <div th:text="${aluno.nome}"></div>
+            <div th:text="${aluno.email}"></div>
+            <div th:text="${aluno.turma.nome}"></div>
+            <div>
+                <button>Editar</button>
+                <button>Deletar</button>
+            </div>
+        </div>
+    </div>
+</html>

@@ -93,4 +93,12 @@ public class ProfessorController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Professor salvo com sucesso!");
         return "redirect:/cadastrar/professor";
     }
+
+    @GetMapping("/listar/professores")
+    public String listarProfessores(Model model){
+
+        model.addAttribute("professores", professorRepository.findAll());
+        
+        return "admin/listar-professores";
+    }
 }

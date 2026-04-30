@@ -91,4 +91,12 @@ public class TurmaController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/listar/turmas")
+    public String listarSalas(Model model){
+
+        model.addAttribute("turmas", turmaRepository.findAll());
+        
+        return "admin/listar-turmas";
+    }
+
 }

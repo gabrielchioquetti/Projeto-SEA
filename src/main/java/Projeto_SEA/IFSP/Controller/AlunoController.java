@@ -83,4 +83,12 @@ public class AlunoController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Aluno salvo com sucesso!");
         return "redirect:/cadastrar/aluno";
     }
+
+    @GetMapping("/listar/alunos")
+    public String listarAlunos(Model model){
+
+        model.addAttribute("alunos", alunoRepository.findAll());
+        
+        return "admin/listar-alunos";
+    }
 }

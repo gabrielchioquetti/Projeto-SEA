@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+    <div th:fragment="content">
+        <h3>Professores</h3>
+
+        <div class="tabela tabela-header">
+            <div>Foto</div>
+            <div>Prontuário</div>
+            <div>Nome</div>
+            <div>Email</div>
+            <div>Área de atuação</div>
+            <div>Ações</div>
+        </div>
+
+        <div th:each="professor : ${professores}" class="tabela tabela-linha">
+            <div>
+                <img th:src="@{${professor.img_professor}}" width="40" alt="Foto de perfil do professor">
+            </div>
+            <div th:text="${professor.prontuario}"></div>
+            <div th:text="${professor.nome}"></div>
+            <div th:text="${professor.email}"></div>
+            <div th:text="${professor.area}"></div>
+            <div>
+                <button>Editar</button>
+                <button>Deletar</button>
+            </div>
+        </div>
+    </div>
+</html>

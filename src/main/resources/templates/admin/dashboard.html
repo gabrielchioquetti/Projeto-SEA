@@ -4,18 +4,18 @@
 
         <h3>Painel do Administrador</h3>
 
-        <div class="div-painel_adm">
+        <div class="tabela">
             <div class="quantidade-itens">
                 <h4>Alunos</h4>
-                <p>Quantidade</p>
+                <p th:text="${totalAlunos}">0</p>
             </div>
             <div class="quantidade-itens">
                 <h4>Professores</h4>
-                <p>Quantidade</p>
+                <p th:text="${totalProfessores}">0</p>
             </div>
             <div class="quantidade-itens">
                 <h4>Salas</h4>
-                <p>Quantidade</p>
+                <p th:text="${totalSalas}">0</p>
             </div>
             <div class="quantidade-itens">
                 <h4>Aulas de Hoje</h4>
@@ -27,14 +27,14 @@
 
         <div id="div-proximas_aulas">
 
-            <div class="div-painel_adm titulo">
+            <div class="tabela tabela-header">
                 <div>Data</div>
                 <div>Hora</div>
                 <div>Professor</div>
                 <div>Sala</div>
             </div>
 
-            <div class="div-painel_adm linha">
+            <div class="tabela tabela-linha">
                 <div>Dia</div>
                 <div>Horário</div>
                 <div>Professor da aula</div>
