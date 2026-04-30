@@ -2,35 +2,62 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
     <div th:fragment="content">
         <div class="div-cadastrar">
-            <h2>Cadastro de Sala</h2>
+            <h2>Cadastro de Horário</h2>
             <form th:action="@{/cadastrar/horario}" th:method="POST" th:object="${horario}" class="form-cadastro">
-                <label for="diaSemana">Período:</label>
-                <input id="diaSemana" th:field="*{diaSemana}" type="text" required placeholder="Ex: Seg">
+                <label>Dia da Semana:</label>
+                <select th:field="*{diaSemana}">
+                    <option value="">Selecione</option>
+                    <option value="SEGUNDA">Segunda</option>
+                    <option value="TERCA">Terça</option>
+                    <option value="QUARTA">Quarta</option>
+                    <option value="QUINTA">Quinta</option>
+                    <option value="SEXTA">Sexta</option>
+                </select>
                 <div class="error" th:errors="*{diaSemana}"></div>
 
-                <label for="horaInicio">Inicio:</label>
-                <input id="horaInicio" th:field="*{horaInicio}" type="time" required>
+                <label>Início:</label>
+                <input th:field="*{horaInicio}" type="time">
                 <div class="error" th:errors="*{horaInicio}"></div>
 
-                <label for="horaFim">Fim:</label>
-                <input id="horaFim" th:field="*{horaFim}" type="time" required>
+                <label>Fim:</label>
+                <input th:field="*{horaFim}" type="time">
                 <div class="error" th:errors="*{horaFim}"></div>
 
-                <label for="turma">Turma:</label>
-                <input id="turma" th:field="*{turma}" type="text" required>
-                <div class="error" th:errors="*{turma}"></div>
+                <label>Turma:</label>
+                <select th:field="*{turma.id}">
+                    <option value="">Selecione</option>
+                    <option th:each="t : ${turmas}" 
+                            th:value="${t.id}" 
+                            th:text="${t.nome}">
+                    </option>
+                </select>
 
-                <label for="disciplina">Disciplina:</label>
-                <input id="disciplina" th:field="*{disciplina}" type="text" required>
-                <div class="error" th:errors="*{disciplina}"></div>
+                <label>Disciplina:</label>
+                <select th:field="*{disciplina.idDisciplina}">
+                    <option value="">Selecione</option>
+                    <option th:each="d : ${disciplinas}" 
+                            th:value="${d.idDisciplina}" 
+                            th:text="${d.nome}">
+                    </option>
+                </select>
 
-                <label for="professor">Professor:</label>
-                <input id="professor" th:field="*{professor}" type="text">
-                <div class="error" th:errors="*{professor}"></div>
+                <label>Professor:</label>
+                <select th:field="*{professor.id_professor}">
+                    <option value="">Selecione</option>
+                    <option th:each="p : ${professores}" 
+                            th:value="${p.id_professor}" 
+                            th:text="${p.nome}">
+                    </option>
+                </select>
 
-                <label for="sala">Sala:</label>
-                <input id="sala" th:field="*{sala}" type="text">
-                <div class="error" th:errors="*{sala}"></div>
+                <label>Sala:</label>
+                <select th:field="*{sala.id_sala}">
+                    <option value="">Selecione</option>
+                    <option th:each="s : ${salas}" 
+                            th:value="${s.id_sala}" 
+                            th:text="${s.nome}">
+                    </option>
+                </select>
 
                 <button type="submit">Cadastrar</button>
             </form>
