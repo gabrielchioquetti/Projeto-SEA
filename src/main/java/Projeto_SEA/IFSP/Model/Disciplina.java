@@ -5,8 +5,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import Projeto_SEA.IFSP.Enum.AreaAtuacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,11 +45,15 @@ public class Disciplina {
     @JsonIgnore
     private List<Turma> turmas = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private AreaAtuacao area;
+
     public Disciplina() {}
 
-    public Disciplina(String nome, Integer carga) {
+    public Disciplina(String nome, Integer carga, AreaAtuacao area) {
         this.nome = nome;
         this.carga = carga;
+        this.area = area;
     }
 
     public Long getIdDisciplina() {
@@ -79,5 +86,21 @@ public class Disciplina {
 
     public void setProfessores(List<Professor> professores) {
         this.professores = professores;
+    }
+
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
+    public AreaAtuacao getArea() {
+        return area;
+    }
+
+    public void setArea(AreaAtuacao area) {
+        this.area = area;
     }
 }

@@ -1,5 +1,7 @@
 package Projeto_SEA.IFSP.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -9,9 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import Projeto_SEA.IFSP.Enum.AreaAtuacao;
+import Projeto_SEA.IFSP.Model.Disciplina;
 import Projeto_SEA.IFSP.Model.Professor;
 import Projeto_SEA.IFSP.Repository.DisciplinaRepository;
 import Projeto_SEA.IFSP.Repository.ProfessorRepository;
@@ -36,15 +41,24 @@ public class ProfessorController {
     @GetMapping("/cadastrar/professor")
     public String cadastrarProfessor(Model model){
         model.addAttribute("professor", new Professor());
+        model.addAttribute("areas", AreaAtuacao.values());
         model.addAttribute("disciplinas", disciplinaRepository.findAll());
         return "admin/cadastrar-professor";
     }
+
+    @GetMapping("/disciplinas/area")
+        @ResponseBody
+        public List<Disciplina> buscarDisciplinasPorArea(@RequestParam AreaAtuacao area){
+
+            return disciplinaRepository.findByArea(area);
+        }
 
     @PostMapping("/cadastrar/professor")
     public String cadastroProfessor(@Valid @ModelAttribute Professor professor, BindingResult result, @RequestParam("file") MultipartFile file, Model model, RedirectAttributes redirectAttributes){
 
         if (result.hasErrors()) {
             model.addAttribute("disciplinas", disciplinaRepository.findAll());
+            model.addAttribute("areas", AreaAtuacao.values());
             return "admin/cadastrar-professor";
         }
 

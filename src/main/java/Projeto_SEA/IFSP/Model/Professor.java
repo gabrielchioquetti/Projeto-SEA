@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import Projeto_SEA.IFSP.Enum.AreaAtuacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +20,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "professores")
@@ -44,8 +48,9 @@ public class Professor {
     private String senha;
 
     @Column(name = "area_atuacao")
-    @NotBlank(message = "Área de atuação é obrigatório")
-    private String area;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Área de atuação é obrigatório")
+    private AreaAtuacao area;
 
     @Column(name = "img_professor")
     private String img_professor;
@@ -66,7 +71,7 @@ public class Professor {
 
     }
 
-    public Professor(String nome, String email, String prontuario, String senha, String area, String img_professor){
+    public Professor(String nome, String email, String prontuario, String senha, AreaAtuacao area, String img_professor){
         this.nome = nome;
         this.email = email;
         this.prontuario = prontuario;
@@ -115,11 +120,11 @@ public class Professor {
         this.senha = senha;
     }
 
-    public String getArea() {
+    public AreaAtuacao getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(AreaAtuacao area) {
         this.area = area;
     }
 

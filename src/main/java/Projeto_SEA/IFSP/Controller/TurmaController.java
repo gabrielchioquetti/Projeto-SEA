@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import Projeto_SEA.IFSP.Model.Periodo;
+import Projeto_SEA.IFSP.Enum.Periodo;
 import Projeto_SEA.IFSP.Model.Sala;
 import Projeto_SEA.IFSP.Model.Turma;
 import Projeto_SEA.IFSP.Repository.DisciplinaRepository;

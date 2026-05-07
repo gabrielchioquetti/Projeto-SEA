@@ -10,6 +10,15 @@
                 <label for="carga_horaria">Carga horária:</label>
                 <div class="error" th:if="${#fields.hasErrors('carga')}" th:errors="*{carga}"></div>
                 <input id="carga_horaria" th:field="*{carga}" type="number" placeholder="Ex: 36" min="1" step="1" required>
+                <label>Área:</label>
+                <div class="error" th:errors="*{area}"></div>
+                <select th:field="*{area}">
+                    <option value="">Selecione</option>
+                    <option th:each="a : ${areas}"
+                            th:value="${a}"
+                            th:text="${a}">
+                    </option>
+                </select>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>

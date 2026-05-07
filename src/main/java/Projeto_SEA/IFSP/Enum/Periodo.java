@@ -1,4 +1,4 @@
-package Projeto_SEA.IFSP.Model;
+package Projeto_SEA.IFSP.Enum;
 
 public enum Periodo {
     MATUTINO,

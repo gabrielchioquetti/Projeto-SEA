@@ -2,6 +2,7 @@ package Projeto_SEA.IFSP.Model;
 
 import java.time.LocalTime;
 
+import Projeto_SEA.IFSP.Enum.DiaSemana;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

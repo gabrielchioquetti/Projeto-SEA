@@ -3,6 +3,7 @@ package Projeto_SEA.IFSP.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Projeto_SEA.IFSP.Enum.Periodo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import Projeto_SEA.IFSP.Model.DiaSemana;
+import Projeto_SEA.IFSP.Enum.DiaSemana;
 import Projeto_SEA.IFSP.Model.Horario;
 
 @Repository

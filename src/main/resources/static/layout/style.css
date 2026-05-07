@@ -11,10 +11,6 @@ body{
     min-height: 100vh;
 }
 
-main{
-    padding-top: 160px;
-}
-
 /*----- Login ou index -----*/
 #main-login{
     height: 100vh;

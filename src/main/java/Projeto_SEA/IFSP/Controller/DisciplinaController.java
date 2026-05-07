@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import Projeto_SEA.IFSP.Enum.AreaAtuacao;
 import Projeto_SEA.IFSP.Model.Disciplina;
 import Projeto_SEA.IFSP.Repository.DisciplinaRepository;
 import jakarta.validation.Valid;
@@ -22,13 +23,15 @@ public class DisciplinaController {
     @GetMapping("/cadastrar/disciplina")
     public String cadastrarDisciplina(Model model){
         model.addAttribute("disciplina", new Disciplina());
+        model.addAttribute("areas", AreaAtuacao.values());
         return "admin/cadastrar-disciplina";
     }
 
     @PostMapping("/cadastrar/disciplina")
-    public String cadastroDisciplina(@Valid @ModelAttribute Disciplina disciplina, BindingResult result, RedirectAttributes redirectAttributes){
+    public String cadastroDisciplina(@Valid @ModelAttribute Disciplina disciplina, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         
         if (result.hasErrors()) {
+            model.addAttribute("areas", AreaAtuacao.values());
             return "admin/cadastrar-disciplina";
         }
         

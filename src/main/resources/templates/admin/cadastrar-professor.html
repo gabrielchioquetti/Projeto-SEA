@@ -15,7 +15,13 @@
                 <input id="prontuario_professor" th:field="*{prontuario}" type="text" placeholder="EX: it3020101" required>
                 <label for="area">Área de atuação:</label>
                 <div class="error" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></div>
-                <input id="area" th:field="*{area}" type="text" placeholder="EX: Redes" required>
+                <select id="area" th:field="*{area}" required>
+                    <option value="">Selecione</option>
+                    <option th:each="a : ${areas}"
+                            th:value="${a}"
+                            th:text="${a}">
+                    </option>
+                </select>
                 <label for="senha_professor">Senha:</label>
                 <div class="error" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
                 <input id="senha_professor" th:field="*{senha}" type="password" placeholder="Ex: Escolhasua1234@" required>
@@ -25,10 +31,7 @@
                 <label>Disciplinas:</label>
                 <div class="error" th:if="${#fields.hasErrors('disciplinas')}" th:errors="*{disciplinas}">
                 </div>
-                <div th:each="d : ${disciplinas}">
-                    <input type="checkbox" th:id="'disc_' + ${d.idDisciplina}" th:field="*{disciplinas}" th:value="${d.idDisciplina}"/>
-                    <label th:for="'disc_' + ${d.idDisciplina}" th:text="${d.nome}"></label>
-                </div>
+                <div id="lista-disciplinas"></div>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
