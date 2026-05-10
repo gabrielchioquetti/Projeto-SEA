@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+<div th:fragment="content">
+    <div class="pagina-detalhes">
+        <h2 class="titulo-detalhes">Detalhes da Turma</h2>
+        <div class="card-detalhes">
+            <div class="detalhes-info">
+                <div class="detalhe-item">
+                    <span>Nome</span>
+                    <p th:text="${turma.nome}"></p>
+                </div>
+                <div class="detalhe-item">
+                    <span>Período</span>
+                    <p th:text="${turma.periodo}"></p>
+                </div>
+                <div class="detalhe-item">
+                    <span>Curso</span>
+                    <p th:text="${turma.curso}"></p>
+                </div>
+                <div class="detalhe-item">
+                    <span>Sala</span>
+                    <p th:text="${turma.sala.nome}"></p>
+                </div>
+                <div class="detalhe-item">
+                    <span>Disciplinas</span>
+                    <div class="lista-tags">
+                        <span class="tag" th:each="d : ${turma.disciplinas}" th:text="${d.nome}">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detalhes-acoes">
+            <a href="" class="btn-editar">Editar</a>
+            <a href="" class="btn-deletar">Deletar</a>
+        </div>
+    </div>
+</div>
+</html>

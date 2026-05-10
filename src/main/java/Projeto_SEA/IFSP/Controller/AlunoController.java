@@ -103,4 +103,14 @@ public class AlunoController {
         
         return "admin/listar-alunos";
     }
+
+    @GetMapping("/detalhes/aluno/{id}")
+    public String detalhesAluno(@PathVariable Long id, Model model){
+
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
+
+        model.addAttribute("aluno", aluno);
+
+        return "admin/datalhes-aluno";
+    }
 }

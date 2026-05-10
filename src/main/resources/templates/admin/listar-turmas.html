@@ -17,8 +17,7 @@
             <div th:text="${turma.periodo}"></div>
             <div th:text="${turma.sala.nome}"></div>
             <div>
-                <button>Editar</button>
-                <button>Deletar</button>
+                <a th:href="@{/detalhes/turma/{id}(id=${turma.id})}">Ver Detalhes</a>
             </div>
         </div>
     </div>

@@ -28,14 +28,14 @@ public class TurmaController {
 
     @Autowired
     private DisciplinaRepository disciplinaRepository;
-    
+
     private void carregarDadosFormulario(Model model) {
-    model.addAttribute("turma", new Turma());
-    model.addAttribute("salas", salaRepository.findAll());
-    model.addAttribute("disciplinas", disciplinaRepository.findAll());
-    model.addAttribute("periodos", Periodo.values());
-}
-    
+        model.addAttribute("turma", new Turma());
+        model.addAttribute("salas", salaRepository.findAll());
+        model.addAttribute("disciplinas", disciplinaRepository.findAll());
+        model.addAttribute("periodos", Periodo.values());
+    }
+
     @GetMapping("/cadastrar/turma")
     public String cadastrarTurma(Model model) {
         model.addAttribute("turma", new Turma());
@@ -46,7 +46,8 @@ public class TurmaController {
     }
 
     @PostMapping("/cadastrar/turma")
-    public String cadastroTurma(@Valid @ModelAttribute Turma turma, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+    public String cadastroTurma(@Valid @ModelAttribute Turma turma, BindingResult result,
+            RedirectAttributes redirectAttributes, Model model) {
 
         if (result.hasErrors()) {
             carregarDadosFormulario(model);
@@ -77,7 +78,8 @@ public class TurmaController {
         }
 
         turma.setDisciplinas(
-                disciplinaRepository.findAllById(turma.getDisciplinas().stream().map(d -> d.getIdDisciplina()).toList()));
+                disciplinaRepository
+                        .findAllById(turma.getDisciplinas().stream().map(d -> d.getIdDisciplina()).toList()));
 
         if (turma.getPeriodo() == null) {
             result.rejectValue("periodo", null, "Selecione um período");
@@ -92,11 +94,20 @@ public class TurmaController {
     }
 
     @GetMapping("/listar/turmas")
-    public String listarSalas(Model model){
+    public String listarSalas(Model model) {
 
         model.addAttribute("turmas", turmaRepository.findAll());
-        
+
         return "admin/listar-turmas";
     }
 
+    @GetMapping("/detalhes/turma/{id}")
+    public String detalhesTurma(@PathVariable Long id, Model model){
+
+        Turma turma = turmaRepository..findById(id).orElse(null);
+
+        model.addAttribute("turma", turma);
+
+        return "admin/detalhes-turma";
+    }
 }

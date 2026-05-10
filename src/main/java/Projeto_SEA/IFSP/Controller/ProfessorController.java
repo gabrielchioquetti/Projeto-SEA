@@ -115,4 +115,14 @@ public class ProfessorController {
         
         return "admin/listar-professores";
     }
+
+    @GetMapping("/detalhes/professor/{id}")
+    public String detalhesProfessor(@PathVariable Long id, Model model){
+
+        Professor professor = professorRepository.findById(id).orElse(null);
+
+        model.addAttribute("professor", professor);
+        
+        return "admin/detalhes-professor";
+    }
 }
