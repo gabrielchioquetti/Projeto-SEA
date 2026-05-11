@@ -101,13 +101,63 @@ public class TurmaController {
         return "admin/listar-turmas";
     }
 
-    @GetMapping("/detalhes/turma/{id}")
-    public String detalhesTurma(@PathVariable Long id, Model model){
+    @GetMapping("/deletar/turma/{id}")
+    public String deletarTurma(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 
-        Turma turma = turmaRepository..findById(id).orElse(null);
+        Turma turma = turmaRepository.findById(id).orElse(null);
+
+        if (turma != null) {
+            turmaRepository.delete(turma);
+            redirectAttributes.addFlashAttribute("mensagemSucesso", "Turma deletada com sucesso!");
+        }
+
+        return "redirect:/listar/turmas";
+    }
+
+    @GetMapping("/editar/turma/{id}")
+    public String editarTurma(@PathVariable Long id, Model model) {
+
+        Turma turma = turmaRepository.findById(id).orElse(null);
+
+        if (turma == null) {
+            return "redirect:/listar/turmas";
+        }
 
         model.addAttribute("turma", turma);
+        model.addAttribute("periodos", Periodo.values());
+        model.addAttribute("salas", salaRepository.findAll());
+        model.addAttribute("disciplinas", disciplinaRepository.findAll());
 
-        return "admin/detalhes-turma";
+        return "admin/editar-turma";
+    }
+
+    @PostMapping("/editar/turma/{id}")
+    public String atualizarTurma(@PathVariable Long id, @Valid @ModelAttribute Turma turma, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+
+        Turma turmaExistente = turmaRepository.findById(id).orElse(null);
+
+        if (turmaExistente == null) {
+            return "redirect:/listar/turmas";
+        }
+
+        if (result.hasErrors()) {
+
+            model.addAttribute("periodos", Periodo.values());
+            model.addAttribute("salas", salaRepository.findAll());
+            model.addAttribute("disciplinas", disciplinaRepository.findAll());
+
+            return "admin/editar-turma";
+        }
+
+        turmaExistente.setNome(turma.getNome());
+        turmaExistente.setCurso(turma.getCurso());
+        turmaExistente.setPeriodo(turma.getPeriodo());
+        turmaExistente.setSala(turma.getSala());
+        turmaExistente.setDisciplinas(disciplinaRepository.findAllById(turma.getDisciplinas() .stream() .map(d -> d.getIdDisciplina()) .toList()));
+
+        turmaRepository.save(turmaExistente);
+        redirectAttributes.addFlashAttribute( "mensagemSucesso", "Turma atualizada com sucesso!");
+
+        return "redirect:/listar/turmas";
     }
 }

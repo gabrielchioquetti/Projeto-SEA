@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 import java.util.UUID;
 
-
 @Service
 public class FileStorageService {
 
@@ -21,14 +20,15 @@ public class FileStorageService {
         String uploadDir = env.getProperty("file.upload-dir");
         if (uploadDir == null) {
             // Lança uma exceção se a propriedade não estiver definida
-            throw new IllegalArgumentException("A propriedade 'file.upload-dir' não está definida no application.properties!");
+            throw new IllegalArgumentException(
+                    "A propriedade 'file.upload-dir' não está definida no application.properties!");
         }
 
         this.path = Paths.get(uploadDir).toAbsolutePath().normalize();
 
         try {
             Files.createDirectories(this.path);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException("Não foi possível criar o diretório de uploads.", ex);
         }
     }
@@ -42,10 +42,28 @@ public class FileStorageService {
         try {
             Path targetLocation = this.path.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        } catch(Exception ex) {
-            throw new RuntimeException("Não foi possível salvar o arquivo " + fileName + ". Por favor, tente novamente!", ex);
+        } catch (Exception ex) {
+            throw new RuntimeException(
+                    "Não foi possível salvar o arquivo " + fileName + ". Por favor, tente novamente!", ex);
         }
         return fileName;
     }
 
+    public void delete(String caminhoImagem) {
+        try {
+
+            if (caminhoImagem == null || caminhoImagem.isBlank()) {
+                return;
+            }
+
+            String nomeArquivo = caminhoImagem.replace("/uploads/", "");
+
+            Path path = Paths.get(uploadDir).resolve(nomeArquivo);
+
+            Files.deleteIfExists(path);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

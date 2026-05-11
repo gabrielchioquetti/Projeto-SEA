@@ -18,93 +18,83 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Turma {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-private String nome;
+    private String nome;
 
-@Enumerated(EnumType.STRING)
-private Periodo periodo;
+    @Enumerated(EnumType.STRING)
+    private Periodo periodo;
 
-private String curso;
+    private String curso;
 
-@ManyToOne
-private Sala sala;
+    @ManyToOne
+    private Sala sala;
 
-@ManyToMany
-@JoinTable(
-    name = "turma_disciplina",
-    joinColumns = @JoinColumn(name = "turma_id"),
-    inverseJoinColumns = @JoinColumn(name = "disciplina_id")
-)
-private List<Disciplina> disciplinas = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "disciplina_id"))
+    private List<Disciplina> disciplinas = new ArrayList<>();
 
+    public Turma() {
 
-public Turma() {
+    }
 
-}
+    public Turma(Long id, String nome, Periodo periodo, String curso, Sala sala, List<Disciplina> disciplinas) {
+        this.id = id;
+        this.nome = nome;
+        this.periodo = periodo;
+        this.curso = curso;
+        this.sala = sala;
+        this.disciplinas = disciplinas;
+    }
 
-public Turma(Long id, String nome, Periodo periodo, String curso, Sala sala, List<Disciplina> disciplinas) {
-    this.id=id;
-    this.nome=nome;
-    this.periodo=periodo;
-    this.curso=curso;
-    this.sala=sala;
-    this.disciplinas=disciplinas;
-}
+    public Long getId() {
+        return id;
+    }
 
-public Long getId() {
-    return id;
-}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-public void setId(Long id) {
-    this.id = id;
-}
+    public String getNome() {
+        return nome;
+    }
 
-public String getNome() {
-    return nome;
-}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-public void setNome(String nome) {
-    this.nome = nome;
-}
+    public Periodo getPeriodo() {
+        return periodo;
+    }
 
-public Periodo getPeriodo() {
-    return periodo;
-}
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
+    }
 
-public void setPeriodo(Periodo periodo) {
-    this.periodo = periodo;
-}
+    public String getCurso() {
+        return curso;
+    }
 
-public String getCurso() {
-    return curso;
-}
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
 
-public void setCurso(String curso) {
-    this.curso = curso;
-}
+    public Sala getSala() {
+        return sala;
+    }
 
-public Sala getSala() {
-    return sala;
-}
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
 
-public void setSala(Sala sala) {
-    this.sala = sala;
-}
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
 
-public List<Disciplina> getDisciplinas() {
-    return disciplinas;
-}
-
-public void setDisciplinas(List<Disciplina> disciplinas) {
-    this.disciplinas = disciplinas;
-}
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
 
 }
-
-
-
-
-
