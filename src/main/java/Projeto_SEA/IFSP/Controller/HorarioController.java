@@ -85,7 +85,7 @@ public class HorarioController {
             horario.getHoraInicio(),
             horario.getHoraFim(),
             horario.getSala().getId_sala(),
-            horario.getProfessor().getId_professor(),
+            horario.getProfessor().getId(),
             horario.getTurma().getId()
         );
 

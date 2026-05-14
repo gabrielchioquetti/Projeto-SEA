@@ -36,17 +36,6 @@ public class AlunoController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    @GetMapping("/perfil/aluno")
-    public String perfilAluno(// Model model,
-    //  Principal principal
-    ){
-       // String email = principal.getName();
-       // Aluno aluno = alunoRepository.findByEmail(email);
-       // model.addAttribute("aluno", aluno);
-        return "perfil/aluno";
-    }
-
     
     @GetMapping("/cadastrar/aluno")
     public String cadastrarAluno(Aluno aluno, Model model){
@@ -75,7 +64,7 @@ public class AlunoController {
 
         try {
             String imagem = fileStorageService.store(file);
-            aluno.setImg_aluno("/uploads/" + imagem);
+            aluno.setImagem("/uploads/" + imagem);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensagemErro", "Erro ao salvar imagem: " + e.getMessage());
             return "redirect:/cadastrar/aluno";

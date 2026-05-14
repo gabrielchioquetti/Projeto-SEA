@@ -446,7 +446,7 @@ button:hover {
 
 /*----- Perfil -----*/
 .conta {
-    margin: 50px 0px;
+    margin: 250px 0px;
     height: auto;
     display: flex;
     justify-content: space-around;
@@ -454,8 +454,10 @@ button:hover {
     flex-direction: column;
     border-radius: 3px;
     width: 1000px;
-    background-color: #aaaaaa;
+    background-color:#15521f;
     box-shadow: 4px 3px 2px black;
+    position: relative;
+    color: white;
 }
 
 .perfilcontainer {
@@ -500,11 +502,13 @@ button:hover {
     border-radius: 8px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     margin: 5px 10px;
+    color:  black;
 }
 
 .table {
     margin: 5px 10px;
     background-color: white;
+    color: black;
 }
 
 

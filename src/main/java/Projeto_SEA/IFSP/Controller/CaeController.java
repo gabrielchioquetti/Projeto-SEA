@@ -52,7 +52,7 @@ public class CaeController {
 
         try {
             String imagem = fileStorageService.store(file);
-            cae.setImg_cae("/uploads/" + imagem);
+            cae.setImagem("/uploads/" + imagem);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensagemErro", "Erro ao salvar imagem: " + e.getMessage());
             return "redirect:/cadastrar/cae";

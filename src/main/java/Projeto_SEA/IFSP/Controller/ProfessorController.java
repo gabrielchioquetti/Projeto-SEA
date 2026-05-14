@@ -91,7 +91,7 @@ public class ProfessorController {
 
         try {
             String imagem = fileStorageService.store(file);
-            professor.setImg_professor("/uploads/" + imagem);
+            professor.setImagem("/uploads/" + imagem);
         } catch (Exception e) {
             model.addAttribute("mensagemErro", "Erro ao salvar imagem");
             model.addAttribute("disciplinas", disciplinaRepository.findAll());
@@ -132,7 +132,7 @@ public class ProfessorController {
         Professor professor = professorRepository.findById(id).orElse(null);
 
         if (professor != null) {
-            fileStorageService.delete(professor.getImg_professor());
+            fileStorageService.delete(professor.getImagem());
             professorRepository.delete(professor);
         }
 
@@ -188,14 +188,14 @@ public class ProfessorController {
         if (file != null && !file.isEmpty()) {
 
             try {
-                if (professorExistente.getImg_professor() != null) {
-                    String imagemAntiga = professorExistente.getImg_professor() .replace("/uploads/", "");
+                if (professorExistente.getImagem() != null) {
+                    String imagemAntiga = professorExistente.getImagem() .replace("/uploads/", "");
                     fileStorageService.delete(imagemAntiga);
                 }
 
                 String imagem = fileStorageService.store(file);
 
-                professorExistente.setImg_professor("/uploads/" + imagem);
+                professorExistente.setImagem("/uploads/" + imagem);
 
             } catch (Exception e) {
                 model.addAttribute("mensagemErro", "Erro ao salvar imagem");
