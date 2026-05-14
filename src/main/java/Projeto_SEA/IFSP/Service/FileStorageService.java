@@ -51,17 +51,12 @@ public class FileStorageService {
 
     public void delete(String caminhoImagem) {
         try {
-
             if (caminhoImagem == null || caminhoImagem.isBlank()) {
                 return;
             }
-
             String nomeArquivo = caminhoImagem.replace("/uploads/", "");
-
-            Path path = Paths.get(uploadDir).resolve(nomeArquivo);
-
-            Files.deleteIfExists(path);
-
+            Path arquivo = this.path.resolve(nomeArquivo);
+            Files.deleteIfExists(arquivo);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Turma {
@@ -35,18 +36,26 @@ public class Turma {
     @ManyToMany
     @JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "disciplina_id"))
     private List<Disciplina> disciplinas = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "turma")
+    private List<Aluno> alunos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "turma")
+    private List<Horario> horarios = new ArrayList<>();
 
     public Turma() {
 
     }
 
-    public Turma(Long id, String nome, Periodo periodo, String curso, Sala sala, List<Disciplina> disciplinas) {
+    public Turma(Long id, String nome, Periodo periodo, String curso, Sala sala, List<Disciplina> disciplinas, List<Aluno> alunos, List<Horario> horarios) {
         this.id = id;
         this.nome = nome;
         this.periodo = periodo;
         this.curso = curso;
         this.sala = sala;
         this.disciplinas = disciplinas;
+        this.alunos = alunos;
+        this.horarios = horarios;
     }
 
     public Long getId() {
@@ -97,4 +106,19 @@ public class Turma {
         this.disciplinas = disciplinas;
     }
 
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public List<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
+    }
 }

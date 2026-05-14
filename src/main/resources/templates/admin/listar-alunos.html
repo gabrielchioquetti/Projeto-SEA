@@ -19,9 +19,17 @@
         <div th:text="${aluno.prontuario}"></div>
         <div th:text="${aluno.nome}"></div>
         <div th:text="${aluno.email}"></div>
-        <div th:text="${aluno.turma.nome}"></div>
         <div>
-            <a th:href="@{/detalhes/aluno/{id}(id=${aluno.id})}">Ver Detalhes</a>
+            <span th:if="${aluno.turma != null}" 
+                th:text="${aluno.turma.nome}">
+            </span>
+
+            <span th:if="${aluno.turma == null}">
+                Sem turma
+            </span>
+        </div>
+        <div>
+            <a th:href="@{/detalhes/aluno/{id}(id=${aluno.id_aluno})}">Ver Detalhes</a>
         </div>
     </div>
 </div>

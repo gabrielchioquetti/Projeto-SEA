@@ -1,18 +1,25 @@
 package Projeto_SEA.IFSP.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Projeto_SEA.IFSP.Enum.Periodo;
+import Projeto_SEA.IFSP.Model.Aluno;
+import Projeto_SEA.IFSP.Model.Horario;
 import Projeto_SEA.IFSP.Model.Sala;
 import Projeto_SEA.IFSP.Model.Turma;
+import Projeto_SEA.IFSP.Repository.AlunoRepository;
 import Projeto_SEA.IFSP.Repository.DisciplinaRepository;
+import Projeto_SEA.IFSP.Repository.HorarioRepository;
 import Projeto_SEA.IFSP.Repository.SalaRepository;
 import Projeto_SEA.IFSP.Repository.TurmaRepository;
 import jakarta.validation.Valid;
@@ -28,6 +35,12 @@ public class TurmaController {
 
     @Autowired
     private DisciplinaRepository disciplinaRepository;
+
+    @Autowired
+    private AlunoRepository alunoRepository;
+
+    @Autowired
+    private HorarioRepository horarioRepository;
 
     private void carregarDadosFormulario(Model model) {
         model.addAttribute("turma", new Turma());
@@ -106,12 +119,40 @@ public class TurmaController {
 
         Turma turma = turmaRepository.findById(id).orElse(null);
 
-        if (turma != null) {
-            turmaRepository.delete(turma);
-            redirectAttributes.addFlashAttribute("mensagemSucesso", "Turma deletada com sucesso!");
+        if (turma == null) {
+            redirectAttributes.addFlashAttribute("mensagemErro", "Turma não encontrada!");
+            return "redirect:/listar/turmas";
         }
 
+        List<Aluno> alunos = turma.getAlunos();
+        
+        for (Aluno aluno : alunos) {
+            aluno.setTurma(null);
+        }
+
+        horarioRepository.deleteAll(turma.getHorarios());
+
+        alunoRepository.saveAll(turma.getAlunos());
+
+        turmaRepository.delete(turma);
+
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Turma deletada com sucesso!");
+
         return "redirect:/listar/turmas";
+    }
+
+    @GetMapping("/detalhes/turma/{id}")
+    public String detalhesTurma(@PathVariable Long id, Model model) {
+
+        Turma turma = turmaRepository.findById(id).orElse(null);
+
+        if (turma == null) {
+            return "redirect:/listar/turmas";
+        }
+
+        model.addAttribute("turma", turma);
+
+        return "admin/detalhes-turma";
     }
 
     @GetMapping("/editar/turma/{id}")
