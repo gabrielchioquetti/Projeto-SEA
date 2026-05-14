@@ -11,15 +11,17 @@ import Projeto_SEA.IFSP.Model.Horario;
 
 @Repository
 public interface HorarioRepository extends JpaRepository<Horario, Long>{
+
     @Query("""
-        SELECT COUNT(h) > 0 FROM Horario h
+        SELECT COUNT(h) > 0
+        FROM Horario h
         WHERE h.diaSemana = :dia
         AND (
             (:inicio < h.horaFim AND :fim > h.horaInicio)
         )
         AND (
             h.sala.id_sala = :salaId
-            OR h.professor.id_professor = :professorId
+            OR h.professor.id = :professorId
             OR h.turma.id = :turmaId
         )
     """)

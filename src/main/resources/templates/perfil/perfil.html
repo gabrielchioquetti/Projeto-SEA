@@ -20,21 +20,44 @@
                         </svg>
                     </div>
                     <div class="msgperfil">
-                        <h2>Olá, *{.nome}!</h2>
+                        <h2 th:text="'Olá, ' + ${usuario.nome} + '!'"></h2>
                     </div>
                 </div>
                 <div class="infos">
                     <div class="info">
                         <h3>Nome:</h3>
+                        <p th:text="${usuario.nome}"></p>
                     </div>
+
                     <div class="info">
                         <h3>Prontuário:</h3>
+                        <p th:text="${usuario.prontuario}"></p>
                     </div>
+
                     <div class="info">
                         <h3>Email:</h3>
+                        <p th:text="${usuario.email}"></p>
                     </div>
-                    <div class="info">
-                        <h3>Turma:</h3>
+
+                    <div th:if="${usuario.tipoUsuario.name() == 'ALUNO'}">
+                        <div class="info">
+                            <h3>Turma:</h3>
+                            <p th:text="${usuario.turma != null ? usuario.turma.nome : 'Sem turma'}"></p>
+                        </div>
+                    </div>
+
+                    <div th:if="${usuario.tipoUsuario.name() == 'PROFESSOR'}">
+                        <div class="info">
+                            <h3>Área:</h3>
+                            <p th:text="${usuario.area}"></p>
+                        </div>
+                    </div>
+
+                    <div th:if="${usuario.tipoUsuario.name() == 'CAE'}">
+                        <div class="info">
+                            <h3>Nível de acesso:</h3>
+                            <p>Administrador CAE</p>
+                        </div>
                     </div>
                 </div>
                 <div class="aulas">
@@ -59,6 +82,7 @@
             </div>
         </div>
     </main>
+    <script th:src="@{/js/script.js}"></script>
 </body>
 
 </html>
