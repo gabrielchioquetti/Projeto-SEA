@@ -17,8 +17,8 @@
             <div th:text="${sala.capacidade}"></div>
             <div th:text="${sala.tipo}"></div>
             <div>
-                <button>Editar</button>
-                <button>Deletar</button>
+                <a th:href="@{/editar/sala/{id}(id=${sala.id_sala})}">Editar</a>
+                <a th:href="@{/deletar/sala/{id}(id=${sala.id_sala})}" onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
             </div>
         </div>
     </div>
