@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,23 +22,89 @@ public class DisciplinaController {
     private DisciplinaRepository disciplinaRepository;
 
     @GetMapping("/cadastrar/disciplina")
-    public String cadastrarDisciplina(Model model){
+    public String cadastrarDisciplina(Model model) {
         model.addAttribute("disciplina", new Disciplina());
         model.addAttribute("areas", AreaAtuacao.values());
         return "admin/cadastrar-disciplina";
     }
 
     @PostMapping("/cadastrar/disciplina")
-    public String cadastroDisciplina(@Valid @ModelAttribute Disciplina disciplina, BindingResult result, RedirectAttributes redirectAttributes, Model model){
-        
+    public String cadastroDisciplina(@Valid @ModelAttribute Disciplina disciplina, BindingResult result,
+            RedirectAttributes redirectAttributes, Model model) {
+
         if (result.hasErrors()) {
             model.addAttribute("areas", AreaAtuacao.values());
             return "admin/cadastrar-disciplina";
         }
-        
+
         disciplina.setNome(disciplina.getNome().trim());
         disciplinaRepository.save(disciplina);
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Disciplina salva com sucesso!");
         return "redirect:/cadastrar/disciplina";
+    }
+
+    @GetMapping("/listar/disciplinas")
+    public String listarDisciplinas(Model model) {
+
+        model.addAttribute("disciplinas", disciplinaRepository.findAll());
+
+        return "admin/listar-disciplinas";
+    }
+
+    @GetMapping("/deletar/disciplina/{id}")
+    public String deletarDisciplina(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+        Disciplina disciplina = disciplinaRepository.findById(id).orElse(null);
+
+        if (disciplina != null) {
+            disciplina.getProfessores().clear();
+            disciplina.getTurmas().clear();
+            disciplinaRepository.save(disciplina);
+            disciplinaRepository.delete(disciplina);
+        }
+
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Disciplina deletada com sucesso!");
+
+        return "redirect:/listar/disciplinas";
+    }
+
+    @GetMapping("/editar/disciplina/{id}")
+    public String editarDisciplina(@PathVariable Long id, Model model) {
+
+        Disciplina disciplina = disciplinaRepository.findById(id).orElse(null);
+
+        if (disciplina == null) {
+            return "redirect:/listar/disciplinas";
+        }
+
+        model.addAttribute("disciplina", disciplina);
+        model.addAttribute("areas", AreaAtuacao.values());
+
+        return "admin/editar-disciplina";
+    }
+
+    @PostMapping("/editar/disciplina/{id}")
+    public String atualizarDisciplina(@PathVariable Long id, @Valid @ModelAttribute Disciplina disciplina, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+
+        Disciplina disciplinaExistente = disciplinaRepository.findById(id).orElse(null);
+
+        if (disciplinaExistente == null) {
+            return "redirect:/listar/disciplinas";
+        }
+
+        if (result.hasErrors()) {
+
+            model.addAttribute("areas", AreaAtuacao.values());
+            return "admin/editar-disciplina";
+        }
+
+        disciplinaExistente.setNome(disciplina.getNome().trim());
+        disciplinaExistente.setCarga(disciplina.getCarga());
+        disciplinaExistente.setArea(disciplina.getArea());
+        disciplinaRepository.save(disciplinaExistente);
+
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Disciplina atualizada com sucesso!");
+
+        return "redirect:/listar/disciplinas";
     }
 }

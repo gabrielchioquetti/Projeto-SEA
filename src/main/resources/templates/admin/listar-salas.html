@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
-    <div th:fragment="content">
-        <h3>Salas</h3>
+<div th:fragment="content">
+    <h3>Salas</h3>
 
-        <div class="tabela tabela-header">
-            <div>ID</div>
-            <div>Nome</div>
-            <div>Capacidade</div>
-            <div>Tipo</div>
-            <div>Ações</div>
-        </div>
+    <div class="tabela tabela-header">
+        <div>ID</div>
+        <div>Nome</div>
+        <div>Capacidade</div>
+        <div>Tipo</div>
+        <div>Ações</div>
+    </div>
 
-        <div th:each="sala : ${salas}" class="tabela tabela-linha">
-            <div th:text="${sala.id_sala}"></div>
-            <div th:text="${sala.nome}"></div>
-            <div th:text="${sala.capacidade}"></div>
-            <div th:text="${sala.tipo}"></div>
-            <div>
-                <a th:href="@{/editar/sala/{id}(id=${sala.id_sala})}">Editar</a>
-                <a th:href="@{/deletar/sala/{id}(id=${sala.id_sala})}" onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
-            </div>
+    <div th:each="sala : ${salas}" class="tabela tabela-linha">
+        <div th:text="${sala.id_sala}"></div>
+        <div th:text="${sala.nome}"></div>
+        <div th:text="${sala.capacidade}"></div>
+        <div th:text="${sala.tipo}"></div>
+        <div>
+            <a th:href="@{/editar/sala/{id}(id=${sala.id_sala})}">Editar</a>
+            <a th:href="@{/deletar/sala/{id}(id=${sala.id_sala})}"
+                onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
         </div>
     </div>
+</div>
+
 </html>

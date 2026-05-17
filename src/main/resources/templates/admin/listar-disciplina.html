@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+
+<div th:fragment="content">
+
+    <h3>Disciplinas</h3>
+
+    <div class="tabela tabela-header">
+        <div>ID</div>
+        <div>Nome</div>
+        <div>Carga Horária</div>
+        <div>Área</div>
+        <div>Professores</div>
+        <div>Turmas</div>
+        <div>Ações</div>
+    </div>
+
+    <div th:each="disciplina : ${disciplinas}" class="tabela tabela-linha">
+        <div th:text="${disciplina.idDisciplina}"></div>
+        <div th:text="${disciplina.nome}"></div>
+        <div th:text="${disciplina.carga + 'h'}"></div>
+        <div th:text="${disciplina.area}"></div>
+        <div th:text="${#lists.size(disciplina.professores)}"></div>
+        <div th:text="${#lists.size(disciplina.turmas)}"></div>
+
+        <div>
+            <a th:href="@{/editar/disciplina/{id}(id=${disciplina.idDisciplina})}">
+                Editar
+            </a>
+            <a th:href="@{/deletar/disciplina/{id}(id=${disciplina.idDisciplina})}"
+               onclick="return confirm('Deseja realmente deletar?')">
+                Deletar
+            </a>
+        </div>
+    </div>
+
+</div>
+</html>

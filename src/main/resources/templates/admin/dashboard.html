@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
-    <div th:fragment="content">
+<div th:fragment="content">
 
-        <h3>Painel do Administrador</h3>
+    <h3>Painel do Administrador</h3>
 
-        <div class="tabela">
-            <div class="quantidade-itens">
-                <h4>Alunos</h4>
-                <p th:text="${totalAlunos}">0</p>
-            </div>
-            <div class="quantidade-itens">
-                <h4>Professores</h4>
-                <p th:text="${totalProfessores}">0</p>
-            </div>
-            <div class="quantidade-itens">
-                <h4>Salas</h4>
-                <p th:text="${totalSalas}">0</p>
-            </div>
-            <div class="quantidade-itens">
-                <h4>Aulas de Hoje</h4>
-                <p>Quantidade</p>
-            </div>
+    <div class="tabela">
+        <div class="quantidade-itens">
+            <h4>Alunos</h4>
+            <p th:text="${totalAlunos}">0</p>
+        </div>
+        <div class="quantidade-itens">
+            <h4>Professores</h4>
+            <p th:text="${totalProfessores}">0</p>
+        </div>
+        <div class="quantidade-itens">
+            <h4>Salas</h4>
+            <p th:text="${totalSalas}">0</p>
+        </div>
+        <div class="quantidade-itens">
+            <h4>Aulas de Hoje</h4>
+            <p>Quantidade</p>
+        </div>
+    </div>
+
+    <h3>Próximas Aulas</h3>
+
+    <div id="div-proximas_aulas">
+
+        <div class="tabela tabela-header">
+            <div>Data</div>
+            <div>Hora</div>
+            <div>Professor</div>
+            <div>Sala</div>
         </div>
 
-        <h3>Próximas Aulas</h3>
-
-        <div id="div-proximas_aulas">
-
-            <div class="tabela tabela-header">
-                <div>Data</div>
-                <div>Hora</div>
-                <div>Professor</div>
-                <div>Sala</div>
-            </div>
-
-            <div class="tabela tabela-linha">
-                <div>Dia</div>
-                <div>Horário</div>
-                <div>Professor da aula</div>
-                <div>Sala</div>
-            </div>
-
+        <div class="tabela tabela-linha">
+            <div>Dia</div>
+            <div>Horário</div>
+            <div>Professor da aula</div>
+            <div>Sala</div>
         </div>
 
     </div>
+
+</div>
 
 </html>

@@ -59,8 +59,7 @@ public class Horario {
 
     public Horario() {}
 
-    public Horario(Long id, DiaSemana diaSemana, LocalTime horaInicio, LocalTime horaFim,
-                   Turma turma, Disciplina disciplina, Professor professor, Sala sala) {
+    public Horario(Long id, DiaSemana diaSemana, LocalTime horaInicio, LocalTime horaFim, Turma turma, Disciplina disciplina, Professor professor, Sala sala) {
         this.id = id;
         this.diaSemana = diaSemana;
         this.horaInicio = horaInicio;
