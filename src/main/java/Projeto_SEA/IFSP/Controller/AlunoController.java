@@ -93,7 +93,7 @@ public class AlunoController {
         
         return "admin/listar-alunos";
     }
-
+    
     @GetMapping("/detalhes/aluno/{id}")
     public String detalhesAluno(@PathVariable Long id, Model model){
 
@@ -102,5 +102,96 @@ public class AlunoController {
         model.addAttribute("aluno", aluno);
 
         return "admin/detalhes-aluno";
+    }
+
+    @GetMapping("/deletar/aluno/{id}")
+    public String deletarAluno(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
+
+        if (aluno != null) {
+            if (aluno.getImagem() != null) {
+                String imagem = aluno.getImagem().replace("/uploads/", "");
+                fileStorageService.delete(imagem);
+            }
+            alunoRepository.delete(aluno);
+        }
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Aluno deletado com sucesso!");
+
+        return "redirect:/listar/alunos";
+    }
+
+    @GetMapping("/editar/aluno/{id}")
+    public String editarAluno(@PathVariable Long id, Model model) {
+
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
+
+        if (aluno == null) {
+            return "redirect:/listar/alunos";
+        }
+
+        model.addAttribute("aluno", aluno);
+        model.addAttribute("turmas", turmaRepository.findAll());
+
+        return "admin/editar-aluno";
+    }
+
+    @PostMapping("/editar/aluno/{id}")
+    public String atualizarAluno(@PathVariable Long id, @Valid @ModelAttribute Aluno aluno, BindingResult result, @RequestParam("file") MultipartFile file, Model model, RedirectAttributes redirectAttributes) {
+
+        Aluno alunoExistente = alunoRepository.findById(id).orElse(null);
+
+        if (alunoExistente == null) {
+            return "redirect:/listar/alunos";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("turmas", turmaRepository.findAll());
+            return "admin/editar-aluno";
+        }
+
+        alunoExistente.setNome(aluno.getNome());
+        alunoExistente.setEmail(aluno.getEmail());
+        alunoExistente.setProntuario(aluno.getProntuario());
+
+        if (aluno.getTurma() != null) {
+
+            Turma turma = turmaRepository.findById(aluno.getTurma().getId()).orElse(null);
+            alunoExistente.setTurma(turma);
+        }
+
+        if (aluno.getSenha() != null && !aluno.getSenha().isBlank()) {
+
+            alunoExistente.setSenha(passwordEncoder.encode(aluno.getSenha()));
+        }
+
+        if (file != null && !file.isEmpty()) {
+
+            try {
+
+                if (alunoExistente.getImagem() != null) {
+
+                    String imagemAntiga = alunoExistente.getImagem().replace("/uploads/", "");
+                    fileStorageService.delete(imagemAntiga);
+                }
+
+                String imagem = fileStorageService.store(file);
+
+                alunoExistente.setImagem("/uploads/" + imagem);
+
+            } catch (Exception e) {
+
+                model.addAttribute("mensagemErro", "Erro ao salvar imagem");
+                model.addAttribute("turmas", turmaRepository.findAll());
+
+                return "admin/editar-aluno";
+            }
+        }
+
+        alunoRepository.save(alunoExistente);
+
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Aluno atualizado com sucesso!");
+
+        return "redirect:/listar/alunos";
     }
 }

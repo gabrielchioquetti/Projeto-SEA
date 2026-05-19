@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+<div th:fragment="content">
+    <div class="div-cadastrar">
+        <h2>Editar CAE</h2>
+        <form th:action="@{/editar/cae/{id}(id=${cae.id})}" th:method="POST" enctype="multipart/form-data" th:object="${cae}" class="form-cadastro">
+            <label for="nome_cae">Nome:</label>
+            <div class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            <input id="nome_cae" th:field="*{nome}" type="text" placeholder="Ex: João" required>
+            <label for="email_cae">E-mail:</label>
+            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <input id="email_cae" th:field="*{email}" type="email" placeholder="Ex: cae@ifsp.edu.br" required>
+            <label for="prontuario_cae">Prontuário:</label>
+            <div class="error" th:if="${#fields.hasErrors('prontuario')}" th:errors="*{prontuario}"></div>
+            <input id="prontuario_cae" th:field="*{prontuario}" type="text" placeholder="Ex: it3020101" required>
+            <label for="senha_cae">Nova senha:</label>
+            <div class="error" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+            <input id="senha_cae" name="senha" type="password" placeholder="Deixe vazio para manter a senha atual">
+            <label for="upload">Nova imagem:</label>
+            <div class="error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
+            <input id="upload" name="file" type="file">
+            <div class="preview-imagem">
+                <img th:if="${cae.imagem != null}" th:src="@{${cae.imagem}}" alt="Imagem do CAE" width="120">
+            </div>
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</div>
+</html>

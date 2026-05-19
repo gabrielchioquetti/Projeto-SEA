@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+<div th:fragment="content">
+    <div class="div-cadastrar">
+        <h2>Editar Aluno</h2>
+        <form th:action="@{/editar/aluno/{id}(id=${aluno.id})}" th:method="POST" enctype="multipart/form-data" th:object="${aluno}" class="form-cadastro">
+            <label for="nome_aluno">Nome:</label>
+            <div class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            <input id="nome_aluno" th:field="*{nome}" type="text" placeholder="Ex: João" required>
+            <label for="email_aluno">E-mail:</label>
+            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <input id="email_aluno" th:field="*{email}" type="email" placeholder="Ex: aluno@ifsp.edu.br" required>
+            <label for="prontuario_aluno">Prontuário:</label>
+            <div class="error" th:if="${#fields.hasErrors('prontuario')}" th:errors="*{prontuario}"></div>
+            <input id="prontuario_aluno" th:field="*{prontuario}" type="text" placeholder="Ex: it3020101" required>
+            <label for="senha_aluno">Nova senha:</label>
+            <div class="error" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+            <input id="senha_aluno" name="senha" type="password" placeholder="Deixe vazio para manter a senha atual">
+            <label for="upload">Nova imagem:</label>
+            <div class="error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
+            <input id="upload" name="file" type="file">
+            <div class="preview-imagem">
+                <img th:if="${aluno.imagem != null}" th:src="@{${aluno.imagem}}" alt="Imagem do aluno" width="120">
+            </div>
+            <label for="turma">Turma:</label>
+            <div class="error" th:if="${#fields.hasErrors('turma')}" th:errors="*{turma}"></div>
+            <select id="turma" th:field="*{turma.id}" required>
+                <option value="">Selecione uma turma</option>
+                <option th:each="turma : ${turmas}" th:value="${turma.id}" th:text="${turma.nome}"></option>
+            </select>
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</div>
+</html>

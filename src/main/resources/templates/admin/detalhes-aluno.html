@@ -26,8 +26,8 @@
         </div>
     </div>
     <div class="detalhes-acoes">
-        <a href="" class="btn-editar">Editar</a>
-        <a href="" class="btn-deletar">Deletar</a>
+        <a th:href="@{/editar/aluno/{id}(id=${aluno.id})}" class="btn-editar">Editar</a>
+        <a th:href="@{/deletar/aluno/{id}(id=${aluno.id})}" class="btn-deletar">Deletar</a>
     </div>
 </div>
 

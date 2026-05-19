@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
+<div th:fragment="content">
+    <h3>CAEs</h3>
+    <div class="tabela tabela-header">
+        <div>Imagem</div>
+        <div>Nome</div>
+        <div>Email</div>
+        <div>Prontuário</div>
+        <div>Ações</div>
+    </div>
+
+    <div th:each="cae : ${caes}" class="tabela tabela-linha">
+        <div>
+            <img th:if="${cae.imagem != null}" th:src="@{${cae.imagem}}" alt="Imagem do CAE" width="70">
+        </div>
+        <div th:text="${cae.nome}"></div>
+        <div th:text="${cae.email}"></div>
+        <div th:text="${cae.prontuario}"></div>
+        <div>
+            <a th:href="@{/editar/cae/{id}(id=${cae.id})}">Editar</a>
+            <a th:href="@{/deletar/cae/{id}(id=${cae.id})}">Deletar</a>
+        </div>
+    </div>
+</div>
+</html>
