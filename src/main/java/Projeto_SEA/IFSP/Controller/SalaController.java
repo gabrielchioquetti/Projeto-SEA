@@ -6,11 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Projeto_SEA.IFSP.Enum.TipoSala;
 import Projeto_SEA.IFSP.Model.Sala;
+import Projeto_SEA.IFSP.Repository.HorarioRepository;
 import Projeto_SEA.IFSP.Repository.SalaRepository;
 import jakarta.validation.Valid;
 
@@ -19,6 +21,9 @@ public class SalaController {
 
     @Autowired
     private SalaRepository salaRepository;
+
+    @Autowired
+    private HorarioRepository horarioRepository;
 
     @GetMapping("/cadastrar/sala")
     public String cadastrarSala(Sala sala, Model model) {
@@ -54,10 +59,11 @@ public class SalaController {
         Sala sala = salaRepository.findById(id).orElse(null);
 
         if (sala != null) {
+            horarioRepository.deleteBySala(sala);
             salaRepository.delete(sala);
         }
 
-        redirectAttributes.addFlashAttribute("mensagemSucesso", "Sala deletado com sucesso!");
+        redirectAttributes.addFlashAttribute("mensagemSucesso", "Sala deletada com sucesso!");
 
         return "redirect:/listar/salas";
     }

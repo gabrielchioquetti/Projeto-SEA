@@ -20,6 +20,7 @@ import Projeto_SEA.IFSP.Enum.AreaAtuacao;
 import Projeto_SEA.IFSP.Model.Disciplina;
 import Projeto_SEA.IFSP.Model.Professor;
 import Projeto_SEA.IFSP.Repository.DisciplinaRepository;
+import Projeto_SEA.IFSP.Repository.HorarioRepository;
 import Projeto_SEA.IFSP.Repository.ProfessorRepository;
 import Projeto_SEA.IFSP.Service.FileStorageService;
 import jakarta.validation.Valid;
@@ -38,6 +39,9 @@ public class ProfessorController {
 
     @Autowired
     private DisciplinaRepository disciplinaRepository;
+
+    @Autowired
+    private HorarioRepository horarioRepository;
 
     @GetMapping("/cadastrar/professor")
     public String cadastrarProfessor(Model model) {
@@ -132,6 +136,7 @@ public class ProfessorController {
         Professor professor = professorRepository.findById(id).orElse(null);
 
         if (professor != null) {
+            horarioRepository.deleteByProfessor(professor);
             fileStorageService.delete(professor.getImagem());
             professorRepository.delete(professor);
         }

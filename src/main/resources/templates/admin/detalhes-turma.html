@@ -19,7 +19,7 @@
                 </div>
                 <div class="detalhe-item">
                     <span>Sala</span>
-                    <p th:text="${turma.sala.nome}"></p>
+                    <p th:text="${turma.sala != null ? turma.sala.nome : 'Sem sala'}"></p>
                 </div>
                 <div class="detalhe-item">
                     <span>Disciplinas</span>

@@ -15,7 +15,7 @@
         <div th:text="${turma.nome}"></div>
         <div th:text="${turma.curso}"></div>
         <div th:text="${turma.periodo}"></div>
-        <div th:text="${turma.sala.nome}"></div>
+        <div th:text="${turma.sala != null ? turma.sala.nome : 'Sem sala'}"></div>
         <div>
             <a th:href="@{/detalhes/turma/{id}(id=${turma.id})}">Ver Detalhes</a>
         </div>

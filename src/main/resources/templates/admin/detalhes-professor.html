@@ -7,7 +7,7 @@
         </h2>
         <div class="card-detalhes">
             <div class="detalhes-imagem">
-                <img th:src="@{${professor.img_professor}}" alt="">
+                <img th:src="@{${professor.imagem}}" alt="Foto de perfil do professor">
             </div>
             <div class="detalhes-info">
                 <div class="detalhe-item">
@@ -35,8 +35,8 @@
             </div>
         </div>
         <div class="detalhes-acoes">
-            <a th:href="@{/editar/professor/{id}(id=${professor.id_professor})}" class="btn-editar">Editar</a>
-            <a th:href="@{/deletar/professor/{id}(id=${professor.id_professor})}" class="btn-deletar"
+            <a th:href="@{/editar/professor/{id}(id=${professor.id})}" class="btn-editar">Editar</a>
+            <a th:href="@{/deletar/professor/{id}(id=${professor.id})}" class="btn-deletar"
                 onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
         </div>
     </div>

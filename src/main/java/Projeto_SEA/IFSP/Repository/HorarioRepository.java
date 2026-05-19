@@ -3,11 +3,15 @@ package Projeto_SEA.IFSP.Repository;
 import java.time.LocalTime;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import Projeto_SEA.IFSP.Enum.DiaSemana;
 import Projeto_SEA.IFSP.Model.Horario;
+import Projeto_SEA.IFSP.Model.Professor;
+import Projeto_SEA.IFSP.Model.Sala;
 
 @Repository
 public interface HorarioRepository extends JpaRepository<Horario, Long>{
@@ -33,4 +37,12 @@ public interface HorarioRepository extends JpaRepository<Horario, Long>{
         Long professorId,
         Long turmaId
     );
+
+    @Transactional
+    @Modifying
+    void deleteByProfessor(Professor professor);
+
+    @Transactional
+    @Modifying
+    void deleteBySala(Sala sala);
 }

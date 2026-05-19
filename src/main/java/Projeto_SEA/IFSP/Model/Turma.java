@@ -31,6 +31,7 @@ public class Turma {
     private String curso;
 
     @ManyToOne
+    @JoinColumn(name = "sala_id")
     private Sala sala;
 
     @ManyToMany

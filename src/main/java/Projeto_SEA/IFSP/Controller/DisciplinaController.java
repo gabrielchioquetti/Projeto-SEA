@@ -48,7 +48,7 @@ public class DisciplinaController {
 
         model.addAttribute("disciplinas", disciplinaRepository.findAll());
 
-        return "admin/listar-disciplinas";
+        return "admin/listar-disciplina";
     }
 
     @GetMapping("/deletar/disciplina/{id}")

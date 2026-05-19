@@ -14,14 +14,14 @@
 
     <div th:each="professor : ${professores}" class="tabela tabela-linha">
         <div>
-            <img th:src="@{${professor.img_professor}}" width="40" alt="Foto de perfil do professor">
+            <img th:src="${professor.imagem}" width="40" alt="Foto de perfil do professor">
         </div>
         <div th:text="${professor.prontuario}"></div>
         <div th:text="${professor.nome}"></div>
         <div th:text="${professor.email}"></div>
         <div th:text="${professor.area}"></div>
         <div>
-            <a th:href="@{/detalhes/professor/{id}(id=${professor.id_professor})}">Ver Detalhes</a>
+            <a th:href="@{/detalhes/professor/{id}(id=${professor.id})}">Detalhes</a>
         </div>
     </div>
 </div>

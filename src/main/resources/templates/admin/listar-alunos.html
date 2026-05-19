@@ -14,7 +14,7 @@
 
     <div th:each="aluno : ${alunos}" class="tabela tabela-linha">
         <div>
-            <img th:src="@{${aluno.img_aluno}}" width="40" alt="Foto de perfil do aluno">
+            <img th:src="${aluno.imagem}" width="40" alt="Foto de perfil do aluno">
         </div>
         <div th:text="${aluno.prontuario}"></div>
         <div th:text="${aluno.nome}"></div>
@@ -28,7 +28,7 @@
             </span>
         </div>
         <div>
-            <a th:href="@{/detalhes/aluno/{id}(id=${aluno.id_aluno})}">Ver Detalhes</a>
+            <a th:href="@{/detalhes/aluno/{id}(id=${aluno.id})}">Detalhes</a>
         </div>
     </div>
 </div>

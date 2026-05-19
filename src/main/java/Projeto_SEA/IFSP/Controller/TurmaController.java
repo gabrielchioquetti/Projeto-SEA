@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Projeto_SEA.IFSP.Enum.Periodo;
 import Projeto_SEA.IFSP.Model.Aluno;
-import Projeto_SEA.IFSP.Model.Horario;
 import Projeto_SEA.IFSP.Model.Sala;
 import Projeto_SEA.IFSP.Model.Turma;
 import Projeto_SEA.IFSP.Repository.AlunoRepository;

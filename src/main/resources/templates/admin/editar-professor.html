@@ -3,7 +3,7 @@
 <div th:fragment="content">
     <div class="div-cadastrar">
         <h2>Editar Professor</h2>
-        <form th:action="@{/editar/professor/{id}(id=${professor.id_professor})}" th:method="POST"
+        <form th:action="@{/editar/professor/{id}(id=${professor.id})}" th:method="POST"
             enctype="multipart/form-data" th:object="${professor}" class="form-cadastro">
             <label for="nome_professor">Nome:</label>
             <div class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
@@ -29,7 +29,7 @@
             <div class="error" th:if="${mensagemErro}" th:text="${mensagemErro}"></div>
             <input id="upload" name="file" type="file">
             <div class="preview-imagem">
-                <img th:if="${professor.img_professor != null}" th:src="@{${professor.img_professor}}"
+                <img th:if="${professor.imagem != null}" th:src="@{${professor.imagem}}"
                     alt="Imagem do professor" width="120">
             </div>
             <label>Disciplinas:</label>
