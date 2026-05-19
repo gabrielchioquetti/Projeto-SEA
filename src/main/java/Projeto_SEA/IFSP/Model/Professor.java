@@ -32,6 +32,7 @@ public class Professor extends Usuario {
         super(id, nome, email, prontuario, senha, imagem, TipoUsuario.PROFESSOR);
 
         this.area = area;
+        this.tipoUsuario = TipoUsuario.PROFESSOR;
     }
 
     public AreaAtuacao getArea() {

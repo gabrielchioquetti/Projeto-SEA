@@ -17,5 +17,7 @@ public class Cae extends Usuario {
                String imagem) {
 
         super(id, nome, email, prontuario, senha, imagem, TipoUsuario.CAE);
+
+        this.tipoUsuario = TipoUsuario.CAE;
     }
 }
