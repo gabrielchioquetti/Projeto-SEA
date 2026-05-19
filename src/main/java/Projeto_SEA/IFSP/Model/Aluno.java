@@ -16,6 +16,8 @@ public class Aluno extends Usuario {
 
     public Aluno() {
 
+        this.tipoUsuario = TipoUsuario.ALUNO;
+
     }
 
     public Aluno(Long id, String nome, String email, String prontuario,
@@ -24,7 +26,7 @@ public class Aluno extends Usuario {
         super(id, nome, email, prontuario, senha, imagem, TipoUsuario.ALUNO);
 
         this.turma = turma;
-        this.tipoUsuario = TipoUsuario.ALUNO;
+        
     }
 
     public Turma getTurma() {

@@ -10,6 +10,8 @@ public class Cae extends Usuario {
 
     public Cae() {
 
+        this.tipoUsuario = TipoUsuario.CAE;
+
     }
 
     public Cae(Long id, String nome, String email,
@@ -17,7 +19,6 @@ public class Cae extends Usuario {
                String imagem) {
 
         super(id, nome, email, prontuario, senha, imagem, TipoUsuario.CAE);
-
-        this.tipoUsuario = TipoUsuario.CAE;
+        
     }
 }

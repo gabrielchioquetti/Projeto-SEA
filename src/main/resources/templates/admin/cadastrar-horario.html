@@ -38,9 +38,9 @@
             </select>
 
             <label>Professor:</label>
-            <select th:field="*{professor.id_professor}">
+            <select th:field="*{professor.id}">
                 <option value="">Selecione</option>
-                <option th:each="p : ${professores}" th:value="${p.id_professor}" th:text="${p.nome}">
+                <option th:each="p : ${professores}" th:value="${p.id}" th:text="${p.nome}">
                 </option>
             </select>
 
