@@ -1,6 +1,5 @@
 package Projeto_SEA.IFSP.Controller;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,30 +35,27 @@ public class PerfilController {
     @GetMapping
     public String perfil(Model model) {
 
-        /*
-         * TESTE TEMPORÁRIO SEM AUTENTICAÇÃO
-         *
-         * Troque entre aluno/professor
-         * alterando o repository abaixo.
-         */
-
-         Usuario usuario = alunoRepository
+        // TESTE TEMPORÁRIO
+        Usuario usuario = alunoRepository
                 .findById(2L)
                 .orElse(null);
 
-        // Usuario usuario = professorRepository
-        //         .findById(1L)
-        //         .orElse(null);
+        /*
+        Usuario usuario = professorRepository
+                .findById(1L)
+                .orElse(null);
+        */
 
         if (usuario == null) {
 
             return "redirect:/";
         }
 
-        List<Horario> horarios = buscarHorarios(usuario);
+        List<Horario> horarios =
+                buscarHorarios(usuario);
 
         Map<String, GradeHorarioDTO> grade =
-                montarGrade(horarios);
+                montarGrade(horarios, usuario);
 
         model.addAttribute("usuario", usuario);
 
@@ -68,29 +64,28 @@ public class PerfilController {
         return "perfil/perfil";
     }
 
-    private List<Horario> buscarHorarios(Usuario usuario) {
+    private List<Horario> buscarHorarios(
+            Usuario usuario) {
 
-        List<Horario> horarios = new ArrayList<>();
+        if (usuario instanceof Aluno aluno &&
+                aluno.getTurma() != null) {
 
-        if (usuario instanceof Aluno aluno) {
+            return horarioRepository
+                    .findByTurma(aluno.getTurma());
+        }
 
-            if (aluno.getTurma() != null) {
+        if (usuario instanceof Professor professor) {
 
-                horarios = horarioRepository
-                        .findByTurma(aluno.getTurma());
-            }
-
-        } else if (usuario instanceof Professor professor) {
-
-            horarios = horarioRepository
+            return horarioRepository
                     .findByProfessor(professor);
         }
 
-        return horarios;
+        return List.of();
     }
 
     private Map<String, GradeHorarioDTO> montarGrade(
-            List<Horario> horarios) {
+            List<Horario> horarios,
+            Usuario usuario) {
 
         Map<String, GradeHorarioDTO> gradeMap =
                 new LinkedHashMap<>();
@@ -103,32 +98,141 @@ public class PerfilController {
                     + horario.getHoraFim();
 
             GradeHorarioDTO dto =
-                    gradeMap.getOrDefault(
+                    gradeMap.computeIfAbsent(
                             faixaHorario,
-                            new GradeHorarioDTO()
+                            h -> {
+
+                                GradeHorarioDTO novo =
+                                        new GradeHorarioDTO();
+
+                                novo.setHorario(
+                                        faixaHorario
+                                );
+
+                                return novo;
+                            }
                     );
 
-            dto.setHorario(faixaHorario);
+            String conteudo =
+                    montarConteudoHorario(
+                            horario,
+                            usuario
+                    );
 
-            String disciplina =
-                    horario.getDisciplina().getNome();
+            String cor =
+                    gerarCorDisciplina(
+                            horario.getDisciplina()
+                                   .getNome()
+                    );
 
-            switch (horario.getDiaSemana()) {
-
-                case SEGUNDA -> dto.setSeg(disciplina);
-
-                case TERCA -> dto.setTer(disciplina);
-
-                case QUARTA -> dto.setQua(disciplina);
-
-                case QUINTA -> dto.setQui(disciplina);
-
-                case SEXTA -> dto.setSex(disciplina);
-            }
-
-            gradeMap.put(faixaHorario, dto);
+            preencherDiaSemana(
+                    dto,
+                    horario,
+                    conteudo,
+                    cor
+            );
         }
 
         return gradeMap;
+    }
+
+    private String montarConteudoHorario(
+            Horario horario,
+            Usuario usuario) {
+
+        StringBuilder texto =
+                new StringBuilder();
+
+        texto.append(
+                horario.getDisciplina().getNome()
+        );
+
+        if (horario.getSala() != null) {
+
+            texto.append("<br>Sala: ")
+                 .append(
+                         horario.getSala().getNome()
+                 );
+        }
+
+        if (usuario instanceof Aluno &&
+                horario.getProfessor() != null) {
+
+            texto.append("<br>Prof. ")
+                 .append(
+                         horario.getProfessor().getNome()
+                 );
+        }
+
+        return texto.toString();
+    }
+
+    private void preencherDiaSemana(
+            GradeHorarioDTO dto,
+            Horario horario,
+            String conteudo,
+            String cor) {
+
+        switch (horario.getDiaSemana()) {
+
+            case SEGUNDA -> {
+
+                dto.setSeg(conteudo);
+
+                dto.setCorSeg(cor);
+            }
+
+            case TERCA -> {
+
+                dto.setTer(conteudo);
+
+                dto.setCorTer(cor);
+            }
+
+            case QUARTA -> {
+
+                dto.setQua(conteudo);
+
+                dto.setCorQua(cor);
+            }
+
+            case QUINTA -> {
+
+                dto.setQui(conteudo);
+
+                dto.setCorQui(cor);
+            }
+
+            case SEXTA -> {
+
+                dto.setSex(conteudo);
+
+                dto.setCorSex(cor);
+            }
+        }
+    }
+
+    private String gerarCorDisciplina(
+            String nome) {
+
+        String[] cores = {
+
+                "#2563eb",
+                "#dc2626",
+                "#16a34a",
+                "#9333ea",
+                "#ea580c",
+                "#0891b2",
+                "#ca8a04",
+                "#be123c",
+                "#0f766e",
+                "#4338ca"
+        };
+
+        int index =
+                Math.abs(nome.hashCode())
+                % cores.length;
+
+        return cores[index];
     }
 }

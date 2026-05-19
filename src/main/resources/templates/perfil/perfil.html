@@ -12,12 +12,9 @@
             <div class="conta">
                 <div class="perfilcontainer">
                     <div class="user">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-person-circle userimg" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                            <path fill-rule="evenodd"
-                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                        </svg>
+                        <img th:if="${usuario.imagem != null}" th:src="${usuario.imagem}" class="userimg">
+
+                        <img th:if="${usuario.imagem == null}" src="/imagens/user.png" class="userimg">
                     </div>
                     <div class="msgperfil">
                         <h2 th:text="'Olá, ' + ${usuario.nome} + '!'"></h2>
@@ -61,40 +58,103 @@
                     </div>
                 </div>
                 <div class="aulas">
-                   <table border="2" class="table">
 
-                    <thead>
-                        <tr>
-                            <th>Horário</th>
-                            <th>SEG</th>
-                            <th>TER</th>
-                            <th>QUA</th>
-                            <th>QUI</th>
-                            <th>SEX</th>
-                        </tr>
-                    </thead>
+                    <h2 class="h2grade">Grade Horária</h2>
 
-                    <tbody>
+                    <div class="grade-wrapper">
 
-                        <tr th:each="linha : ${grade}">
+                        <table class="grade-table">
 
-                            <td th:text="${linha.horario}"></td>
+                            <thead>
 
-                            <td th:text="${linha.seg}"></td>
+                                <tr>
 
-                            <td th:text="${linha.ter}"></td>
+                                    <th>Horário</th>
 
-                            <td th:text="${linha.qua}"></td>
+                                    <th>SEG</th>
 
-                            <td th:text="${linha.qui}"></td>
+                                    <th>TER</th>
 
-                            <td th:text="${linha.sex}"></td>
+                                    <th>QUA</th>
 
-                        </tr>
+                                    <th>QUI</th>
 
-                    </tbody>
+                                    <th>SEX</th>
 
-                </table>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr th:each="linha : ${grade}">
+
+                                    <td class="horario" th:text="${linha.horario}">
+                                    </td>
+
+                                    <td>
+
+                                        <div class="grade-card" th:if="${linha.seg != null}"
+                                            th:style="'background:' + ${linha.corSeg}">
+
+                                            <span th:utext="${linha.seg}"></span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="grade-card" th:if="${linha.ter != null}"
+                                            th:style="'background:' + ${linha.corTer}">
+
+                                            <span th:utext="${linha.ter}"></span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="grade-card" th:if="${linha.qua != null}"
+                                            th:style="'background:' + ${linha.corQua}">
+
+                                            <span th:utext="${linha.qua}"></span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="grade-card" th:if="${linha.qui != null}"
+                                            th:style="'background:' + ${linha.corQui}">
+
+                                            <span th:utext="${linha.qui}"></span>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="grade-card" th:if="${linha.sex != null}"
+                                            th:style="'background:' + ${linha.corSex}">
+
+                                            <span th:utext="${linha.sex}"></span>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
             </div>
         </div>
