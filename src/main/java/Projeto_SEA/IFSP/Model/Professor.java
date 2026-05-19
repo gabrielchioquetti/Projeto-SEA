@@ -23,6 +23,8 @@ public class Professor extends Usuario {
 
     public Professor() {
 
+        this.tipoUsuario = TipoUsuario.PROFESSOR;
+
     }
 
     public Professor(Long id, String nome, String email, String prontuario,
@@ -32,7 +34,7 @@ public class Professor extends Usuario {
         super(id, nome, email, prontuario, senha, imagem, TipoUsuario.PROFESSOR);
 
         this.area = area;
-        this.tipoUsuario = TipoUsuario.PROFESSOR;
+
     }
 
     public AreaAtuacao getArea() {

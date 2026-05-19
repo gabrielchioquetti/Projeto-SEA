@@ -39,69 +39,154 @@ public class HorarioController {
     @Autowired
     private SalaRepository salaRepository;
 
+    private void carregarListas(Model model) {
+
+    model.addAttribute(
+            "turmas",
+            turmaRepository.findAll());
+
+    model.addAttribute(
+            "disciplinas",
+            disciplinaRepository.findAll());
+
+    model.addAttribute(
+            "professores",
+            professorRepository.findAll());
+
+    model.addAttribute(
+            "salas",
+            salaRepository.findAll());
+}
+
     @GetMapping("/cadastrar/horario")
-    public String cadastrarHorarios(Model model){
+    public String cadastrarHorarios(Model model) {
 
         Horario horario = new Horario();
+
         horario.setTurma(new Turma());
+
         horario.setDisciplina(new Disciplina());
+
         horario.setProfessor(new Professor());
+
         horario.setSala(new Sala());
 
         model.addAttribute("horario", horario);
-        model.addAttribute("turmas", turmaRepository.findAll());
-        model.addAttribute("disciplinas", disciplinaRepository.findAll());
-        model.addAttribute("professores", professorRepository.findAll());
-        model.addAttribute("salas", salaRepository.findAll());
+
+        carregarListas(model);
 
         return "admin/cadastrar-horario";
     }
 
     @PostMapping("/cadastrar/horario")
-    public String cadastroHorario(@Valid @ModelAttribute Horario horario, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+    public String cadastroHorario(
+
+            @Valid @ModelAttribute Horario horario,
+
+            BindingResult result,
+
+            RedirectAttributes redirectAttributes,
+
+            Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("turmas", turmaRepository.findAll());
-            model.addAttribute("disciplinas", disciplinaRepository.findAll());
-            model.addAttribute("professores", professorRepository.findAll());
-            model.addAttribute("salas", salaRepository.findAll());
+
+            carregarListas(model);
 
             return "admin/cadastrar-horario";
         }
 
-        if (horario.getHoraInicio().isAfter(horario.getHoraFim())) {
-            result.rejectValue("horaInicio", "erro", "Hora início deve ser antes do fim");
+        // Busca entidades reais
+        Turma turma = turmaRepository
+                .findById(horario.getTurma().getId())
+                .orElse(null);
 
-            model.addAttribute("turmas", turmaRepository.findAll());
-            model.addAttribute("disciplinas", disciplinaRepository.findAll());
-            model.addAttribute("professores", professorRepository.findAll());
-            model.addAttribute("salas", salaRepository.findAll());
+        Disciplina disciplina = disciplinaRepository
+                .findById(horario.getDisciplina().getIdDisciplina())
+                .orElse(null);
+
+        Professor professor = professorRepository
+                .findById(horario.getProfessor().getId())
+                .orElse(null);
+
+        Sala sala = salaRepository
+                .findById(horario.getSala().getId_sala())
+                .orElse(null);
+
+        // Validação
+        if (turma == null ||
+            disciplina == null ||
+            professor == null ||
+            sala == null) {
+
+            result.reject(
+                    "erro",
+                    "Dados inválidos"
+            );
+
+            carregarListas(model);
 
             return "admin/cadastrar-horario";
         }
 
+        // Injeta entidades reais
+        horario.setTurma(turma);
+
+        horario.setDisciplina(disciplina);
+
+        horario.setProfessor(professor);
+
+        horario.setSala(sala);
+
+        // Validação horário
+        if (horario.getHoraInicio()
+                .isAfter(horario.getHoraFim())) {
+
+            result.rejectValue(
+                    "horaInicio",
+                    "erro",
+                    "Hora início deve ser antes da hora fim"
+            );
+
+            carregarListas(model);
+
+            return "admin/cadastrar-horario";
+        }
+
+        // Conflito
         boolean conflito = horarioRepository.existeConflito(
-            horario.getDiaSemana(),
-            horario.getHoraInicio(),
-            horario.getHoraFim(),
-            horario.getSala().getId_sala(),
-            horario.getProfessor().getId(),
-            horario.getTurma().getId()
+
+                horario.getDiaSemana(),
+
+                horario.getHoraInicio(),
+
+                horario.getHoraFim(),
+
+                sala.getId_sala(),
+
+                professor.getId(),
+
+                turma.getId()
         );
 
         if (conflito) {
-            result.reject("erro", "Já existe conflito de horário!");
 
-            model.addAttribute("turmas", turmaRepository.findAll());
-            model.addAttribute("disciplinas", disciplinaRepository.findAll());
-            model.addAttribute("professores", professorRepository.findAll());
-            model.addAttribute("salas", salaRepository.findAll());
+            result.reject(
+                    "erro",
+                    "Já existe conflito de horário!"
+            );
+
+            carregarListas(model);
 
             return "admin/cadastrar-horario";
         }
 
         horarioRepository.save(horario);
-        redirectAttributes.addFlashAttribute("mensagemSucesso", "Horário salvo com sucesso!");
+
+        redirectAttributes.addFlashAttribute(
+                "mensagemSucesso",
+                "Horário cadastrado com sucesso!"
+        );
 
         return "redirect:/dashboard";
     }
