@@ -36,15 +36,16 @@ public class PerfilController {
     public String perfil(Model model) {
 
         // TESTE TEMPORÁRIO
-        Usuario usuario = alunoRepository
+        /*Usuario usuario = alunoRepository
                 .findById(2L)
                 .orElse(null);
+        */
 
-        /*
+        
         Usuario usuario = professorRepository
                 .findById(1L)
                 .orElse(null);
-        */
+        
 
         if (usuario == null) {
 

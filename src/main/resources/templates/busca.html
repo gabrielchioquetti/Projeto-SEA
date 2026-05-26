@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Busca</title>
+</head>
+
+<body>
+    <main>
+        <div class="flexC">
+
+            <h1>
+                Resultado da busca
+            </h1>
+
+            <p>
+                Pesquisa:
+                <strong th:text="${termo}"></strong>
+            </p>
+
+            <div th:if="${#lists.isEmpty(resultados)}">
+
+                Nenhum resultado encontrado.
+
+            </div>
+
+            <table border="1" th:unless="${#lists.isEmpty(resultados)}">
+
+                <tr>
+
+                    <th>Disciplina</th>
+                    <th>Turma</th>
+                    <th>Sala</th>
+                    <th>Dia</th>
+
+                </tr>
+
+                <tr th:each="horario : ${resultados}">
+
+                    <td th:text="${horario.disciplina.nome}">
+                    </td>
+
+                    <td th:text="${horario.turma.nome}">
+                    </td>
+
+                    <td th:text="${horario.sala.nome}">
+                    </td>
+
+                    <td th:text="${horario.diaSemana}">
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+    </main>
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>
