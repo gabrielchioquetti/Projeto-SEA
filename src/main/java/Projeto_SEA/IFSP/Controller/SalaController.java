@@ -1,6 +1,9 @@
 package Projeto_SEA.IFSP.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Projeto_SEA.IFSP.Enum.TipoSala;
@@ -46,9 +50,13 @@ public class SalaController {
     }
 
     @GetMapping("/listar/salas")
-    public String listarSalas(Model model) {
+    public String listarSalas(@RequestParam(defaultValue = "") String busca, @RequestParam(defaultValue = "0") int page, Model model) {
 
-        model.addAttribute("salas", salaRepository.findAll());
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Sala> salas = salaRepository.findByNomeContainingIgnoreCase(busca, pageable);
+
+        model.addAttribute("salas", salas);
+        model.addAttribute("busca", busca);
 
         return "admin/listar-salas";
     }

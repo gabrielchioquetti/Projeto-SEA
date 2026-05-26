@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
 <div th:fragment="content">
-    <h3>Salas</h3>
+    <div class="topo-listagem">
+        <h3>Salas</h3>
+        <a th:href="@{/cadastrar/sala}" class="btn-cadastrar">+ Nova Sala</a>
+    </div>
+
+    <form method="GET" th:action="@{/listar/salas}" class="form-busca">
+        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar sala...">
+        <button type="submit">Buscar</button>
+    </form>
 
     <div class="tabela tabela-header">
         <div>ID</div>
@@ -11,7 +19,7 @@
         <div>Ações</div>
     </div>
 
-    <div th:each="sala : ${salas}" class="tabela tabela-linha">
+    <div th:each="sala : ${salas.content}" class="tabela tabela-linha">
         <div th:text="${sala.id_sala}"></div>
         <div th:text="${sala.nome}"></div>
         <div th:text="${sala.capacidade}"></div>
@@ -21,6 +29,13 @@
             <a th:href="@{/deletar/sala/{id}(id=${sala.id_sala})}"
                 onclick="return confirm('Deseja realmente deletar?')">Deletar</a>
         </div>
+    </div>
+    <div class="paginacao_cae">
+        <a th:if="${!salas.first}" th:href="@{/listar/salas(page=${salas.number - 1}, busca=${busca})}">Anterior</a>
+        <span th:each="i : ${#numbers.sequence(0, salas.totalPages - 1)}">
+            <a th:href="@{/listar/salas(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == salas.number} ? 'pagina-ativa'"></a>
+        </span>
+        <a th:if="${!salas.last}" th:href="@{/listar/salas(page=${salas.number + 1}, busca=${busca})}">Próximo</a>
     </div>
 </div>
 

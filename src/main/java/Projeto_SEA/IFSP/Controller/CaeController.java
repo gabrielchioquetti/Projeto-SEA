@@ -1,6 +1,9 @@
 package Projeto_SEA.IFSP.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,9 +70,13 @@ public class CaeController {
     }
 
     @GetMapping("/listar/caes")
-    public String listarCaes(Model model) {
+    public String listarCaes(@RequestParam(defaultValue = "") String busca, @RequestParam(defaultValue = "0") int page, Model model) {
 
-        model.addAttribute("caes", caeRepository.findAll());
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Cae> caes = caeRepository.findByNomeContainingIgnoreCase(busca, pageable);
+
+        model.addAttribute("caes", caes);
+        model.addAttribute("busca", busca);
 
         return "admin/listar-caes";
     }

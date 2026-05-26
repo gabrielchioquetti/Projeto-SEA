@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
 <div th:fragment="content">
-    <h3>CAEs</h3>
+    <div class="topo-listagem">
+        <h3>CAEs</h3>
+        <a th:href="@{/cadastrar/cae}" class="btn-cadastrar">+ Nova CAE</a>
+    </div>
+    <form method="GET" th:action="@{/listar/caes}" class="form-busca">
+        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar cae...">
+        <button type="submit">Buscar</button>
+    </form>
     <div class="tabela tabela-header">
         <div>Imagem</div>
         <div>Nome</div>
@@ -10,7 +17,7 @@
         <div>Ações</div>
     </div>
 
-    <div th:each="cae : ${caes}" class="tabela tabela-linha">
+    <div th:each="cae : ${caes.content}" class="tabela tabela-linha">
         <div>
             <img th:if="${cae.imagem != null}" th:src="@{${cae.imagem}}" alt="Imagem do CAE" width="70">
         </div>
@@ -21,6 +28,13 @@
             <a th:href="@{/editar/cae/{id}(id=${cae.id})}">Editar</a>
             <a th:href="@{/deletar/cae/{id}(id=${cae.id})}">Deletar</a>
         </div>
+    </div>
+    <div class="paginacao_cae">
+        <a th:if="${!caes.first}" th:href="@{/listar/caes(page=${caes.number - 1}, busca=${busca})}">Anterior</a>
+        <span th:each="i : ${#numbers.sequence(0, caes.totalPages - 1)}">
+            <a th:href="@{/listar/caes(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == caes.number} ? 'pagina-ativa'"></a>
+        </span>
+        <a th:if="${!caes.last}" th:href="@{/listar/caes(page=${caes.number + 1}, busca=${busca})}">Próximo</a>
     </div>
 </div>
 </html>

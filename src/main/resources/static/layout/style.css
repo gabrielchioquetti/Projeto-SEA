@@ -747,6 +747,70 @@ button:hover {
     z-index: 9999;
 }
 
+/*----- Form de busca cae -----*/
+.form-busca{
+    display:flex;
+    gap:10px;
+    margin:20px 0;
+}
+
+.form-busca input{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.form-busca button{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/*----- Paginação cae -----*/
+.paginacao_cae{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.paginacao_cae a{
+    padding:8px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    background:#eee;
+    color:#000;
+}
+
+.pagina-ativa{
+    background:#15803d !important;
+    color:#fff !important;
+}
+
+/*----- Botão cadastrar -----*/
+.topo-listagem{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.btn-cadastrar{
+    background:#16a34a;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.btn-cadastrar:hover{
+    opacity:0.9;
+    background:#15803d;
+}
 /*----- Animação do toast -----*/
 @keyframes toastFadeInOut {
     0% {

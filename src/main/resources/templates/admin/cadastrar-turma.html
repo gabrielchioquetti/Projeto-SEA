@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
 <div th:fragment="content">
     <div class="div-cadastrar">
-        <h2>Cadastro de Sala</h2>
+        <h2>Cadastro de Turma</h2>
         <form th:action="@{/cadastrar/turma}" th:method="POST" th:object="${turma}" class="form-cadastro">
             <label for="nome">Nome da Turma:</label>
             <input id="nome" th:field="*{nome}" type="text" placeholder="Ex: Turma 01" required>

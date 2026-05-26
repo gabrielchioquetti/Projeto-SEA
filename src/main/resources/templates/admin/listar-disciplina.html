@@ -2,8 +2,15 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
 
 <div th:fragment="content">
+    <div class="topo-listagem">
+        <h3>Disciplinas</h3>
+        <a th:href="@{/cadastrar/disciplina}" class="btn-cadastrar">+ Nova Disciplina</a>
+    </div>
 
-    <h3>Disciplinas</h3>
+    <form method="GET" th:action="@{/listar/disciplinas}" class="form-busca">
+        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar disciplina...">
+        <button type="submit">Buscar</button>
+    </form>
 
     <div class="tabela tabela-header">
         <div>ID</div>
@@ -15,7 +22,7 @@
         <div>Ações</div>
     </div>
 
-    <div th:each="disciplina : ${disciplinas}" class="tabela tabela-linha">
+    <div th:each="disciplina : ${disciplinas.content}" class="tabela tabela-linha">
         <div th:text="${disciplina.idDisciplina}"></div>
         <div th:text="${disciplina.nome}"></div>
         <div th:text="${disciplina.carga + 'h'}"></div>
@@ -32,6 +39,13 @@
                 Deletar
             </a>
         </div>
+    </div>
+    <div class="paginacao_cae">
+        <a th:if="${!disciplinas.first}" th:href="@{/listar/disciplinas(page=${disciplinas.number - 1}, busca=${busca})}">Anterior</a>
+        <span th:each="i : ${#numbers.sequence(0, disciplinas.totalPages - 1)}">
+            <a th:href="@{/listar/disciplinas(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == disciplinas.number} ? 'pagina-ativa'"></a>
+        </span>
+        <a th:if="${!disciplinas.last}" th:href="@{/listar/disciplinas(page=${disciplinas.number + 1}, busca=${busca})}">Próximo</a>
     </div>
 
 </div>

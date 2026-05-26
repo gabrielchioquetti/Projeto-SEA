@@ -2,6 +2,9 @@ package Projeto_SEA.IFSP.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,9 +90,13 @@ public class AlunoController {
     }
 
     @GetMapping("/listar/alunos")
-    public String listarAlunos(Model model){
+    public String listarAlunos(@RequestParam(defaultValue = "") String busca, @RequestParam(defaultValue = "0") int page, Model model){
 
-        model.addAttribute("alunos", alunoRepository.findAll());
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Aluno> alunos = alunoRepository.findByNomeContainingIgnoreCase(busca, pageable);
+
+        model.addAttribute("alunos", alunos);
+        model.addAttribute("busca", busca);
         
         return "admin/listar-alunos";
     }

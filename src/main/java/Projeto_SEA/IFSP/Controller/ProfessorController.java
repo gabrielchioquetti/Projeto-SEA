@@ -3,6 +3,9 @@ package Projeto_SEA.IFSP.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -113,9 +116,14 @@ public class ProfessorController {
     }
 
     @GetMapping("/listar/professores")
-    public String listarProfessores(Model model) {
+    public String listarProfessores(@RequestParam(defaultValue = "") String busca, @RequestParam(defaultValue = "0") int page,
+    Model model) {
 
-        model.addAttribute("professores", professorRepository.findAll());
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Professor> professores = professorRepository.findByNomeContainingIgnoreCase(busca, pageable);
+
+        model.addAttribute("professores", professores);
+        model.addAttribute("busca", busca);
 
         return "admin/listar-professores";
     }

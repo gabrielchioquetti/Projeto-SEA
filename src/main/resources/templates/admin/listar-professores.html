@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
 <div th:fragment="content">
-    <h3>Professores</h3>
+    <div class="topo-listagem">
+        <h3>Professores</h3>
+        <a th:href="@{/cadastrar/professor}" class="btn-cadastrar">+ Novo Professor</a>
+    </div>
+
+    <form method="GET" th:action="@{/listar/professores}" class="form-busca">
+        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar professor...">
+        <button type="submit">Buscar</button>
+    </form>
 
     <div class="tabela tabela-header">
         <div>Foto</div>
@@ -12,7 +20,7 @@
         <div>Ações</div>
     </div>
 
-    <div th:each="professor : ${professores}" class="tabela tabela-linha">
+    <div th:each="professor : ${professores.content}" class="tabela tabela-linha">
         <div>
             <img th:src="${professor.imagem}" width="40" alt="Foto de perfil do professor">
         </div>
@@ -23,6 +31,16 @@
         <div>
             <a th:href="@{/detalhes/professor/{id}(id=${professor.id})}">Detalhes</a>
         </div>
+    </div>
+    <div class="paginacao_cae">
+        <!-- ANTERIOR -->
+        <a th:if="${!professores.first}" th:href="@{/listar/professores(page=${professores.number - 1}, busca=${busca})}">Anterior</a>
+        <!-- NÚMEROS -->
+        <span th:each="i : ${#numbers.sequence(0, professores.totalPages - 1)}">
+            <a th:href="@{/listar/professores(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == professores.number} ? 'pagina-ativa'"></a>
+        </span>
+        <!-- PRÓXIMO -->
+        <a th:if="${!professores.last}" th:href="@{/listar/professores(page=${professores.number + 1}, busca=${busca})}">Próximo</a>
     </div>
 </div>
 

@@ -3,6 +3,9 @@ package Projeto_SEA.IFSP.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Projeto_SEA.IFSP.Enum.Periodo;
@@ -106,9 +110,13 @@ public class TurmaController {
     }
 
     @GetMapping("/listar/turmas")
-    public String listarSalas(Model model) {
+    public String listarSalas(@RequestParam(defaultValue = "") String busca, @RequestParam(defaultValue = "0") int page, Model model) {
 
-        model.addAttribute("turmas", turmaRepository.findAll());
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Turma> turmas = turmaRepository.findByNomeContainingIgnoreCase(busca, pageable);
+
+        model.addAttribute("turmas", turmas);
+        model.addAttribute("busca", busca);
 
         return "admin/listar-turmas";
     }

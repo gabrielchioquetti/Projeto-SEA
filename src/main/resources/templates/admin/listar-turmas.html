@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="layout/base-adm :: layout(~{::content})">
 <div th:fragment="content">
-    <h3>Turmas</h3>
+    <div class="topo-listagem">
+        <h3>Turmas</h3>
+        <a th:href="@{/cadastrar/turma}" class="btn-cadastrar">+ Nova Turma</a>
+    </div>
+
+    <form method="GET" th:action="@{/listar/turmas}" class="form-busca">
+        <input type="text" name="busca" th:value="${busca}" placeholder="Buscar turma...">
+        <button type="submit">Buscar</button>
+    </form>
 
     <div class="tabela tabela-header">
         <div>Nome</div>
@@ -11,7 +19,7 @@
         <div>Ações</div>
     </div>
 
-    <div th:each="turma : ${turmas}" class="tabela tabela-linha">
+    <div th:each="turma : ${turmas.content}" class="tabela tabela-linha">
         <div th:text="${turma.nome}"></div>
         <div th:text="${turma.curso}"></div>
         <div th:text="${turma.periodo}"></div>
@@ -19,6 +27,13 @@
         <div>
             <a th:href="@{/detalhes/turma/{id}(id=${turma.id})}">Ver Detalhes</a>
         </div>
+    </div>
+    <div class="paginacao_cae">
+        <a th:if="${!turmas.first}" th:href="@{/listar/turmas(page=${turmas.number - 1}, busca=${busca})}">Anterior</a>
+        <span th:each="i : ${#numbers.sequence(0, turmas.totalPages - 1)}">
+            <a th:href="@{/listar/turmas(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == turmas.number} ? 'pagina-ativa'"></a>
+        </span>
+        <a th:if="${!turmas.last}" th:href="@{/listar/turmas(page=${turmas.number + 1}, busca=${busca})}">Próximo</a>
     </div>
 </div>
 
