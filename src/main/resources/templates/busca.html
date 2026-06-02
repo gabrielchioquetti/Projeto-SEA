@@ -1,61 +1,66 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
 
 <head>
     <title>Busca</title>
 </head>
 
 <body>
-    <main>
-        <div class="flexC">
 
-            <h1>
-                Resultado da busca
-            </h1>
+    <div class="pagina-busca">
 
-            <p>
+        <h1 class="titulo-pagina">Resultado da Busca</h1>
+
+        <div class="card-busca">
+
+            <p class="termo-pesquisa">
                 Pesquisa:
                 <strong th:text="${termo}"></strong>
             </p>
 
-            <div th:if="${#lists.isEmpty(resultados)}">
+            <div class="sem-resultado" th:if="${#lists.isEmpty(resultados)}">
 
                 Nenhum resultado encontrado.
 
             </div>
 
-            <table border="1" th:unless="${#lists.isEmpty(resultados)}">
+            <div class="tabela-wrapper" th:unless="${#lists.isEmpty(resultados)}">
 
-                <tr>
+                <table class="tabela-busca">
 
-                    <th>Disciplina</th>
-                    <th>Turma</th>
-                    <th>Sala</th>
-                    <th>Dia</th>
+                    <thead>
+                        <tr>
+                            <th>Disciplina</th>
+                            <th>Turma</th>
+                            <th>Sala</th>
+                            <th>Dia</th>
+                        </tr>
+                    </thead>
 
-                </tr>
+                    <tbody>
 
-                <tr th:each="horario : ${resultados}">
+                        <tr th:each="horario : ${resultados}">
 
-                    <td th:text="${horario.disciplina.nome}">
-                    </td>
+                            <td th:text="${horario.disciplina.nome}"></td>
 
-                    <td th:text="${horario.turma.nome}">
-                    </td>
+                            <td th:text="${horario.turma.nome}"></td>
 
-                    <td th:text="${horario.sala.nome}">
-                    </td>
+                            <td th:text="${horario.sala.nome}"></td>
 
-                    <td th:text="${horario.diaSemana}">
-                    </td>
+                            <td th:text="${horario.diaSemana}"></td>
 
-                </tr>
+                        </tr>
 
-            </table>
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
-    </main>
 
-    <script th:src="@{/js/script.js}"></script>
+    </div>
 
 </body>
 

@@ -14,7 +14,7 @@
                     <div class="user">
                         <img th:if="${usuario.imagem != null}" th:src="${usuario.imagem}" class="userimg">
 
-                        <img th:if="${usuario.imagem == null}" src="/imagens/user.png" class="userimg">
+                        <img th:if="${usuario.imagem == null}" src="/Imagens/user.png" class="userimg">
                     </div>
                     <div class="msgperfil">
                         <h2 th:text="'Olá, ' + ${usuario.nome} + '!'"></h2>

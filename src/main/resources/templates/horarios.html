@@ -1,11 +1,66 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+
 <head>
     <title>Horários</title>
 </head>
-<body>
-    <main>
 
-    </main>
-    <script th:src="@{/js/script.js}"></script>
+<body>
+
+    <div class="pagina-horarios">
+
+        <h1 class="titulo-pagina">Horários</h1>
+
+        <div class="card-horarios">
+
+            <p class="subtitulo-pagina">
+                Consulte os horários das aulas cadastradas.
+            </p>
+
+            <div class="tabela-wrapper">
+
+                <table class="tabela-horarios">
+
+                    <thead>
+                        <tr>
+                            <th>Disciplina</th>
+                            <th>Turma</th>
+                            <th>Professor</th>
+                            <th>Sala</th>
+                            <th>Dia</th>
+                            <th>Horário</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr th:each="horario : ${horarios}">
+
+                            <td th:text="${horario.disciplina.nome}"></td>
+
+                            <td th:text="${horario.turma.nome}"></td>
+
+                            <td th:text="${horario.professor.nome}"></td>
+
+                            <td th:text="${horario.sala.nome}"></td>
+
+                            <td th:text="${horario.diaSemana}"></td>
+
+                            <td th:text="${horario.horaInicio + ' - ' + horario.horaFim}"></td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </body>
+
+</html>
