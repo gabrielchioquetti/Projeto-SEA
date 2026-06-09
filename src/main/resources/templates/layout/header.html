@@ -8,10 +8,18 @@
         </div>
 
         <div>
-            <form action="/" method="POST">
-                <input class="search" type="text" placeholder="Pesquisar">
+            <form th:action="@{/home/busca}" method="GET">
+                <input
+                    class="search"
+                    type="text"
+                    name="termo"
+                    placeholder="Pesquisar..."
+                >
 
-                <button type="submit">Confirmar</button>
+                <button type="submit">
+                    Buscar
+                </button>
+
             </form>
         </div>
 

@@ -14,5 +14,12 @@ import Projeto_SEA.IFSP.Model.Disciplina;
 public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
     List<Disciplina> findByArea(AreaAtuacao area);
 
+<<<<<<< HEAD
     Page<Disciplina> findByNomeContainingIgnoreCase(String nome, Pageable pageable);
+=======
+    List<Disciplina>
+    findByNomeContainingIgnoreCase(
+            String nome
+    );
+>>>>>>> 2b6f2445d58bf2d1a27559a6f6321a82de3ff9df
 }
