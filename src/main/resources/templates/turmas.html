@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+
 <head>
-    <title>Turmas</title>
+    <title>Minhas Turmas</title>
 </head>
+
 <body>
-    <main>
-        
-    </main>
-    <script th:src="@{/js/script.js}"></script>
+
+    <div class="pagina-turmas">
+
+        <h1 class="titulo-pagina">Minhas Turmas</h1>
+
+        <div class="grid-turmas">
+
+            <div class="card-turma" th:each="turma : ${turmas}">
+
+                <h3 th:text="${turma.nome}">
+                    Turma ADS-2025
+                </h3>
+
+                <div class="info-turma">
+                    <strong>Curso:</strong>
+                    <span th:text="${turma.curso}"></span>
+                </div>
+
+                <div class="info-turma">
+                    <strong>Período:</strong>
+                    <span th:text="${turma.periodo}"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </body>
+
+</html>

@@ -1,5 +1,6 @@
 package Projeto_SEA.IFSP.Controller;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,132 +13,176 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import Projeto_SEA.IFSP.Model.Horario;
 import Projeto_SEA.IFSP.Model.Professor;
+import Projeto_SEA.IFSP.Model.Sala;
+import Projeto_SEA.IFSP.Model.Turma;
 import Projeto_SEA.IFSP.Repository.HorarioRepository;
 import Projeto_SEA.IFSP.Repository.ProfessorRepository;
+import Projeto_SEA.IFSP.Repository.SalaRepository;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 
-    @Autowired
-    private ProfessorRepository professorRepository;
+        @Autowired
+        private ProfessorRepository professorRepository;
 
-    @Autowired
-    private HorarioRepository horarioRepository;
+        @Autowired
+        private HorarioRepository horarioRepository;
 
-    @GetMapping("/")
-    public String homePage() {
-        return "home.html";
-    }
+        @Autowired
+        private SalaRepository salaRepository;
 
-    @GetMapping("/horarios")
-    public String horarios() {
-        return "horarios";
-    }
+        @GetMapping("/")
+        public String home(Model model) {
 
-    @GetMapping("/salas")
-    public String salas() {
-        return "salas";
-    }
+        Professor professor = professorRepository.findById(1L).orElse(null);
 
-    @GetMapping("/turmas")
-    public String turmas() {
-        return "turmas";
-    }
+        List<Horario> horarios = horarioRepository.findByProfessor(professor);
 
-    @GetMapping("/busca")
-    public String buscar(
-            @RequestParam("termo") String termo,
-            Model model) {
+        // ordena por hora
+        horarios.sort(Comparator.comparing(Horario::getHoraInicio));
 
-        Professor professor = professorRepository
-                .findById(1L)
-                .orElse(null);
+        Horario proxima = horarios.isEmpty() ? null : horarios.get(0);
 
-        if (professor == null) {
+        model.addAttribute("horarios", horarios);
+        model.addAttribute("proxima", proxima);
+        model.addAttribute("totalAulas", horarios.size());
 
-            return "redirect:/";
+        return "home";
         }
 
-        List<Horario> horarios = horarioRepository
-                .findByProfessor(professor);
+        @GetMapping("/horarios")
+        public String horarios(Model model) {
 
-        System.out.println(
-                "Horários encontrados: "
-                        + horarios.size());
+        Professor professor = professorRepository.findById(1L).orElse(null);
 
-        final String termoBusca = termo.toLowerCase();
+        List<Horario> horarios = horarioRepository.findByProfessor(professor);
 
-        List<Horario> resultados = horarios.stream()
-                .filter(h ->
+        model.addAttribute("horarios", horarios);
 
-                h.getDisciplina()
-                        .getNome()
-                        .toLowerCase()
-                        .contains(termoBusca)
+        return "horarios";
+        }
 
-                        ||
+        @GetMapping("/salas")
+        public String salas(Model model) {
 
-                        h.getTurma()
-                                .getNome()
-                                .toLowerCase()
-                                .contains(termoBusca)
+        List<Sala> salas = salaRepository.findAll();
 
-                        ||
+        model.addAttribute("salas", salas);
 
-                        h.getSala()
-                                .getNome()
-                                .toLowerCase()
-                                .contains(termoBusca))
-                .toList();
+        return "salas";
+        }
 
-        System.out.println(
-                "Resultados: "
-                        + resultados.size());
+        @GetMapping("/turmas")
+        public String turmas(Model model) {
 
-        model.addAttribute(
-                "resultados",
-                resultados);
+                Professor professor = professorRepository
+                                .findById(1L)
+                                .orElse(null);
 
-        model.addAttribute(
-                "termo",
-                termo);
+                if (professor == null) {
+                        return "redirect:/";
+                }
 
-        return "busca";
-    }
+                List<Horario> horarios = horarioRepository.findByProfessor(professor);
 
-    @GetMapping("/teste")
-public String teste() {
+                List<Turma> turmas = horarios.stream()
+                                .map(Horario::getTurma)
+                                .distinct()
+                                .toList();
 
-    Professor professor =
-            professorRepository
-            .findById(1L)
-            .orElse(null);
+                model.addAttribute("turmas", turmas);
 
-    List<Horario> horarios =
-            horarioRepository
-            .findByProfessor(professor);
+                return "turmas";
+        }
 
-    System.out.println(
-            "TOTAL: " + horarios.size()
-    );
+        @GetMapping("/busca")
+        public String buscar(
+                        @RequestParam("termo") String termo,
+                        Model model) {
 
-    for (Horario h : horarios) {
+                Professor professor = professorRepository
+                                .findById(1L)
+                                .orElse(null);
 
-        System.out.println(
-                h.getDisciplina().getNome()
-        );
+                if (professor == null) {
 
-        System.out.println(
-                h.getTurma().getNome()
-        );
+                        return "redirect:/";
+                }
 
-        System.out.println(
-                h.getSala().getNome()
-        );
-    }
+                List<Horario> horarios = horarioRepository
+                                .findByProfessor(professor);
 
-    return "home";
-}
+                System.out.println(
+                                "Horários encontrados: "
+                                                + horarios.size());
+
+                final String termoBusca = termo.toLowerCase();
+
+                List<Horario> resultados = horarios.stream()
+                                .filter(h ->
+
+                                h.getDisciplina()
+                                                .getNome()
+                                                .toLowerCase()
+                                                .contains(termoBusca)
+
+                                                ||
+
+                                                h.getTurma()
+                                                                .getNome()
+                                                                .toLowerCase()
+                                                                .contains(termoBusca)
+
+                                                ||
+
+                                                h.getSala()
+                                                                .getNome()
+                                                                .toLowerCase()
+                                                                .contains(termoBusca))
+                                .toList();
+
+                System.out.println(
+                                "Resultados: "
+                                                + resultados.size());
+
+                model.addAttribute(
+                                "resultados",
+                                resultados);
+
+                model.addAttribute(
+                                "termo",
+                                termo);
+
+                return "busca";
+        }
+
+        @GetMapping("/teste")
+        public String teste() {
+
+                Professor professor = professorRepository
+                                .findById(1L)
+                                .orElse(null);
+
+                List<Horario> horarios = horarioRepository
+                                .findByProfessor(professor);
+
+                System.out.println(
+                                "TOTAL: " + horarios.size());
+
+                for (Horario h : horarios) {
+
+                        System.out.println(
+                                        h.getDisciplina().getNome());
+
+                        System.out.println(
+                                        h.getTurma().getNome());
+
+                        System.out.println(
+                                        h.getSala().getNome());
+                }
+
+                return "home";
+        }
 
 }

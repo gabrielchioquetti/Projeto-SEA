@@ -1,0 +1,53 @@
+<nav class="sidebar" th:fragment="menu-user">
+
+    <div class="sidebar-titulo">
+        <h3>SEA</h3>
+    </div>
+
+    <ul>
+
+        <li>
+            <a th:href="@{/home/}">
+                <i class="fa-solid fa-house"></i>
+                Início
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/home/horarios}">
+                <i class="fa-solid fa-clock"></i>
+                Horários
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/home/salas}">
+                <i class="fa-solid fa-door-open"></i>
+                Salas
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/home/turmas}">
+                <i class="fa-solid fa-users"></i>
+                Minhas Turmas
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/perfil}">
+                <i class="fa-solid fa-user"></i>
+                Perfil
+            </a>
+        </li>
+
+        <li class="logout">
+            <a th:href="@{/logout}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Sair
+            </a>
+        </li>
+
+    </ul>
+
+</nav>

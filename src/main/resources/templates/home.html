@@ -1,26 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+
 <head>
     <title>Home</title>
 </head>
+
 <body>
-    <main>
-    <div class="flexC">
-        <div class="calendar">
-            <div class="header">
-                <button id="prev">&lt;</button>
-                <h2 id="month-year"></h2>
-                <button id="next">&gt;</button>
+
+    <main class="dashboard">
+
+        <!-- CARDS RESUMO -->
+        <section class="cards">
+
+            <div class="card">
+                <h3>Hoje</h3>
+                <p th:text="${totalAulas} + ' aulas'"></p>
             </div>
-            <div class="weekdays">
-                <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+
+            <div class="card">
+                <h3>Próxima aula</h3>
+                <p th:text="${proxima.disciplina.nome}"></p>
             </div>
-            <div id="days" class="days-grid"></div>
+
+        </section>
+
+        <!-- PRÓXIMA AULA EM DESTAQUE -->
+        <section class="destaque" th:if="${proxima != null}">
+            <h2>Próxima aula</h2>
+
+            <p>
+                <strong th:text="${proxima.disciplina.nome}"></strong><br>
+                Sala: <span th:text="${proxima.sala.nome}"></span><br>
+                Horário:
+                <span th:text="${proxima.horaInicio}"></span>
+                -
+                <span th:text="${proxima.horaFim}"></span>
+            </p>
+        </section>
+
+        <!-- LISTA DO DIA -->
+        <section class="lista">
+
+            <h2>Aulas de hoje</h2>
+
+            <div class="card-aula" th:each="h : ${horarios}">
+
+                <strong th:text="${h.disciplina.nome}"></strong>
+
+                <p>
+                    <span th:text="${h.horaInicio}"></span>
+                    -
+                    <span th:text="${h.horaFim}"></span>
+                </p>
+
+                <p th:text="${h.sala.nome}"></p>
+
+            </div>
+
+        </section>
+
+        <div class="flexC">
+            <div class="calendar">
+                <div class="header">
+                    <button id="prev">&lt;</button>
+                    <h2 id="month-year"></h2>
+                    <button id="next">&gt;</button>
+                </div>
+                <div class="weekdays">
+                    <div>Dom</div>
+                    <div>Seg</div>
+                    <div>Ter</div>
+                    <div>Qua</div>
+                    <div>Qui</div>
+                    <div>Sex</div>
+                    <div>Sáb</div>
+                </div>
+                <div id="days" class="days-grid"></div>
+            </div>
         </div>
-    </div>
     </main>
 
     <script th:src="@{/js/script.js}"></script>
 
 </body>
+
 </html>

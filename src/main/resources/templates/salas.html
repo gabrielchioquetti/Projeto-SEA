@@ -1,11 +1,57 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/base-alunoprof :: layout(~{::title}, ~{::body})}">
+
 <head>
     <title>Salas</title>
 </head>
+
 <body>
-    <main>
-        
-    </main>
-    <script th:src="@{/js/script.js}"></script>
+
+    <div class="pagina-salas">
+
+        <h1 class="titulo-pagina">Salas</h1>
+
+        <div class="card-salas">
+
+            <p class="subtitulo-pagina">
+                Consulte as salas disponíveis no sistema.
+            </p>
+
+            <div class="tabela-wrapper">
+
+                <table class="tabela-salas">
+
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Capacidade</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr th:each="sala : ${salas}">
+
+                            <td th:text="${sala.nome}"></td>
+
+                            <td th:text="${sala.capacidade}"></td>
+
+                            <td th:text="${sala.tipo}"></td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </body>
+
+</html>
