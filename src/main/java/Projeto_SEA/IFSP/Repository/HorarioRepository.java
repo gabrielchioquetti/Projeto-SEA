@@ -16,29 +16,40 @@ import Projeto_SEA.IFSP.Model.Sala;
 import Projeto_SEA.IFSP.Model.Turma;
 
 @Repository
-public interface HorarioRepository extends JpaRepository<Horario, Long>{
+public interface HorarioRepository extends JpaRepository<Horario, Long> {
+
+    
 
     @Query("""
-        SELECT COUNT(h) > 0
-        FROM Horario h
-        WHERE h.diaSemana = :dia
-        AND (
-            (:inicio < h.horaFim AND :fim > h.horaInicio)
-        )
-        AND (
-            h.sala.id_sala = :salaId
-            OR h.professor.id = :professorId
-            OR h.turma.id = :turmaId
-        )
-    """)
+                SELECT COUNT(h) > 0
+                FROM Horario h
+                WHERE h.diaSemana = :dia
+
+                AND (
+                    (h.sala.id_sala = :salaId
+                     AND :inicio < h.horaFim
+                     AND :fim > h.horaInicio)
+
+                    OR
+
+                    (h.professor.id = :professorId
+                     AND :inicio < h.horaFim
+                     AND :fim > h.horaInicio)
+
+                    OR
+
+                    (h.turma.id = :turmaId
+                     AND :inicio < h.horaFim
+                     AND :fim > h.horaInicio)
+                )
+            """)
     boolean existeConflito(
-        DiaSemana dia,
-        LocalTime inicio,
-        LocalTime fim,
-        Long salaId,
-        Long professorId,
-        Long turmaId
-    );
+            DiaSemana dia,
+            LocalTime inicio,
+            LocalTime fim,
+            Long salaId,
+            Long professorId,
+            Long turmaId);
 
     @Transactional
     @Modifying
@@ -47,7 +58,14 @@ public interface HorarioRepository extends JpaRepository<Horario, Long>{
     @Transactional
     @Modifying
     void deleteBySala(Sala sala);
+
     List<Horario> findByTurma(Turma turma);
 
     List<Horario> findByProfessor(Professor professor);
+
+    List<Horario> findByProfessorAndDiaSemana(
+            Professor professor,
+            DiaSemana diaSemana);
+
+    List<Horario> findByDiaSemanaOrderByHoraInicio(DiaSemana hoje);
 }

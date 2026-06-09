@@ -14,13 +14,15 @@
         <section class="cards">
 
             <div class="card">
-                <h3>Hoje</h3>
-                <p th:text="${totalAulas} + ' aulas'"></p>
-            </div>
+                <h3>Próxima aula:</h3>
 
-            <div class="card">
-                <h3>Próxima aula</h3>
-                <p th:text="${proxima.disciplina.nome}"></p>
+                <p th:if="${proxima != null}"
+                th:text="${proxima.disciplina.nome}">
+                </p>
+
+                <p th:unless="${proxima != null}">
+                    Nenhuma aula
+                </p>
             </div>
 
         </section>

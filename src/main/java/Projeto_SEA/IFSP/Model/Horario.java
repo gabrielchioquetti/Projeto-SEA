@@ -72,8 +72,9 @@ public class Horario {
 
     @AssertTrue(message = "Hora fim deve ser depois da hora início")
     public boolean isHorarioValido() {
-        if (horaInicio == null || horaFim == null) return true;
-        return horaFim.isAfter(horaInicio);
+        return horaInicio != null &&
+            horaFim != null &&
+            horaFim.isAfter(horaInicio);
     }
 
     public Long getId() {

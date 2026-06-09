@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Projeto_SEA.IFSP.Enum.DiaSemana;
 import Projeto_SEA.IFSP.Model.Horario;
 import Projeto_SEA.IFSP.Model.Professor;
 import Projeto_SEA.IFSP.Model.Sala;
@@ -32,21 +33,49 @@ public class HomeController {
         @Autowired
         private SalaRepository salaRepository;
 
+        private DiaSemana obterDiaAtual() {
+
+        return switch (java.time.LocalDate.now().getDayOfWeek()) {
+
+                case MONDAY -> DiaSemana.SEGUNDA;
+                case TUESDAY -> DiaSemana.TERCA;
+                case WEDNESDAY -> DiaSemana.QUARTA;
+                case THURSDAY -> DiaSemana.QUINTA;
+                case FRIDAY -> DiaSemana.SEXTA;
+
+                default -> null;
+                };
+        }
+
         @GetMapping("/")
         public String home(Model model) {
 
-        Professor professor = professorRepository.findById(1L).orElse(null);
+        Professor professor =
+                professorRepository.findById(1L).orElse(null);
 
-        List<Horario> horarios = horarioRepository.findByProfessor(professor);
+        if (professor == null) {
+                return "redirect:/";
+        }
 
-        // ordena por hora
-        horarios.sort(Comparator.comparing(Horario::getHoraInicio));
+        DiaSemana hoje = obterDiaAtual();
 
-        Horario proxima = horarios.isEmpty() ? null : horarios.get(0);
+        List<Horario> horariosHoje =
+                horarioRepository.findByProfessorAndDiaSemana(
+                        professor,
+                        hoje);
 
-        model.addAttribute("horarios", horarios);
+        horariosHoje.sort(
+                Comparator.comparing(Horario::getHoraInicio));
+
+        Horario proxima = horariosHoje.stream()
+                .filter(h -> h.getHoraInicio()
+                        .isAfter(java.time.LocalTime.now()))
+                .findFirst()
+                .orElse(null);
+
+        model.addAttribute("horarios", horariosHoje);
         model.addAttribute("proxima", proxima);
-        model.addAttribute("totalAulas", horarios.size());
+        model.addAttribute("totalAulas", horariosHoje.size());
 
         return "home";
         }
