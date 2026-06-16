@@ -1156,3 +1156,76 @@ button:hover {
     background: #333;
     color: #fff;
 }
+
+/*----- Botões de Relatório PDF -----*/
+
+.acoes{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content: space-around;
+}
+
+.btn-pdf{
+    background:#16a34a;
+    color:white;
+    text-decoration:none;
+    padding:8px 12px;
+    border-radius:6px;
+    font-weight:600;
+    transition:0.2s;
+}
+
+.btn-pdf:hover{
+    background:#15521f;
+    color:white;
+}
+
+.acoes-relatorio{
+    margin:20px 0;
+}
+
+.btn-relatorio-geral{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    background:#16a34a;
+    color:white;
+    text-decoration:none;
+
+    padding:12px 18px;
+    border-radius:8px;
+
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.btn-relatorio-geral:hover{
+    background:#15521f;
+    color:white;
+    transform:translateY(-2px);
+}
+
+.btn-relatorio-geral i{
+    font-size:18px;
+}
+
+.btn-pdf-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:36px;
+    height:36px;
+
+    background:#16a34a;
+    color:white;
+
+    border-radius:50%;
+    text-decoration:none;
+}
+
+.btn-pdf-icon:hover{
+    background:#15521f;
+}

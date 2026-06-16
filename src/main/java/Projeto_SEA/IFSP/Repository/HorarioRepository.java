@@ -68,4 +68,10 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
             DiaSemana diaSemana);
 
     List<Horario> findByDiaSemanaOrderByHoraInicio(DiaSemana hoje);
+
+    List<Horario> findAllByOrderByDiaSemanaAscHoraInicioAsc();
+
+    List<Horario> findByTurmaIdOrderByDiaSemanaAscHoraInicioAsc(Long turmaId);
+
+    List<Horario> findByProfessorIdOrderByDiaSemanaAscHoraInicioAsc(Long professorId);
 }

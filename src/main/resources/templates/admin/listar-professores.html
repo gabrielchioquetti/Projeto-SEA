@@ -28,19 +28,29 @@
         <div th:text="${professor.nome}"></div>
         <div th:text="${professor.email}"></div>
         <div th:text="${professor.area}"></div>
-        <div>
-            <a th:href="@{/detalhes/professor/{id}(id=${professor.id})}">Detalhes</a>
+        <div class="acoes">
+            <a th:href="@{/detalhes/professor/{id}(id=${professor.id})}">
+                Detalhes
+            </a>
+
+            <a th:href="@{/api/relatorios/professor/{id}(id=${professor.id})}" target="_blank" class="btn-pdf">
+
+                <i class="bi bi-file-earmark-pdf-fill"></i>
+            </a>
         </div>
     </div>
     <div class="paginacao_cae">
         <!-- ANTERIOR -->
-        <a th:if="${!professores.first}" th:href="@{/listar/professores(page=${professores.number - 1}, busca=${busca})}">Anterior</a>
+        <a th:if="${!professores.first}"
+            th:href="@{/listar/professores(page=${professores.number - 1}, busca=${busca})}">Anterior</a>
         <!-- NÚMEROS -->
         <span th:each="i : ${#numbers.sequence(0, professores.totalPages - 1)}">
-            <a th:href="@{/listar/professores(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == professores.number} ? 'pagina-ativa'"></a>
+            <a th:href="@{/listar/professores(page=${i}, busca=${busca})}" th:text="${i + 1}"
+                th:classappend="${i == professores.number} ? 'pagina-ativa'"></a>
         </span>
         <!-- PRÓXIMO -->
-        <a th:if="${!professores.last}" th:href="@{/listar/professores(page=${professores.number + 1}, busca=${busca})}">Próximo</a>
+        <a th:if="${!professores.last}"
+            th:href="@{/listar/professores(page=${professores.number + 1}, busca=${busca})}">Próximo</a>
     </div>
 </div>
 

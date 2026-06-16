@@ -24,14 +24,21 @@
         <div th:text="${turma.curso}"></div>
         <div th:text="${turma.periodo}"></div>
         <div th:text="${turma.sala != null ? turma.sala.nome : 'Sem sala'}"></div>
-        <div>
-            <a th:href="@{/detalhes/turma/{id}(id=${turma.id})}">Ver Detalhes</a>
+        <div class="acoes">
+            <a th:href="@{/detalhes/turma/{id}(id=${turma.id})}">
+                Ver Detalhes
+            </a>
+
+            <a th:href="@{/api/relatorios/turma/{id}(id=${turma.id})}" target="_blank" class="btn-pdf">
+                <i class="bi bi-file-earmark-pdf-fill"></i>
+            </a>
         </div>
     </div>
     <div class="paginacao_cae">
         <a th:if="${!turmas.first}" th:href="@{/listar/turmas(page=${turmas.number - 1}, busca=${busca})}">Anterior</a>
         <span th:each="i : ${#numbers.sequence(0, turmas.totalPages - 1)}">
-            <a th:href="@{/listar/turmas(page=${i}, busca=${busca})}" th:text="${i + 1}" th:classappend="${i == turmas.number} ? 'pagina-ativa'"></a>
+            <a th:href="@{/listar/turmas(page=${i}, busca=${busca})}" th:text="${i + 1}"
+                th:classappend="${i == turmas.number} ? 'pagina-ativa'"></a>
         </span>
         <a th:if="${!turmas.last}" th:href="@{/listar/turmas(page=${turmas.number + 1}, busca=${busca})}">Próximo</a>
     </div>
