@@ -57,20 +57,4 @@ public class RelatorioController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdf);
     }
-
-    @GetMapping("/excel/ensalamento")
-    public ResponseEntity<byte[]> gerarExcel() {
-
-        byte[] excel = relatorioService
-                .gerarExcelEnsalamento();
-
-        return ResponseEntity.ok()
-                .header(
-                        HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=ensalamento.xlsx")
-                .contentType(
-                        MediaType.parseMediaType(
-                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
-                .body(excel);
-    }
 }
