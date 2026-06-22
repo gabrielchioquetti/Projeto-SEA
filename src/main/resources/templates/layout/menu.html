@@ -8,6 +8,14 @@
         <li class="li-nav"><a class="a-nav" th:href="@{/listar/salas}">Salas</a></li>
         <li class="li-nav"><a class="a-nav" th:href="@{/listar/turmas}">Turmas</a></li>
         <li class="li-nav"><a class="a-nav" th:href="@{/listar/disciplinas}">Disciplinas</a></li>
-        <li class="li-nav"><a class="a-nav" href="#">Sair</a></li>
+        <li class="li-nav">
+            <form th:action="@{/logout}" method="post">
+
+                <button type="submit">
+                    Sair
+                </button>
+
+            </form>
+        </li>
     </ul>
 </nav>

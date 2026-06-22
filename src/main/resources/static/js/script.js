@@ -40,8 +40,8 @@ if (daysContainer && monthYearText && prevBtn && nextBtn) {
 
             const isToday =
                 i === new Date().getDate() &&
-                month === new Date().getMonth() &&
-                year === new Date().getFullYear()
+                    month === new Date().getMonth() &&
+                    year === new Date().getFullYear()
                     ? "today"
                     : "";
 
@@ -99,5 +99,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const toast =
+        document.getElementById("toast");
+
+    if (!toast) return;
+
+    setTimeout(() => {
+
+        toast.classList.add("toast-hide");
+
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+
+    }, 3000);
 
 });

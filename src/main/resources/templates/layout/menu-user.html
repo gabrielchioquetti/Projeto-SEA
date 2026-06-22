@@ -42,10 +42,13 @@
         </li>
 
         <li class="logout">
-            <a th:href="@{/logout}">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Sair
-            </a>
+            <form th:action="@{/logout}" method="post">
+
+                <button type="submit">
+                    Sair
+                </button>
+
+            </form>
         </li>
 
     </ul>

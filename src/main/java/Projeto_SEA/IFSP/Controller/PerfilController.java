@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import Projeto_SEA.IFSP.Model.Horario;
 import Projeto_SEA.IFSP.Model.Professor;
 import Projeto_SEA.IFSP.Model.Usuario;
 import Projeto_SEA.IFSP.Repository.AlunoRepository;
+import Projeto_SEA.IFSP.Repository.CaeRepository;
 import Projeto_SEA.IFSP.Repository.HorarioRepository;
 import Projeto_SEA.IFSP.Repository.ProfessorRepository;
 
@@ -23,217 +25,215 @@ import Projeto_SEA.IFSP.Repository.ProfessorRepository;
 @RequestMapping("/perfil")
 public class PerfilController {
 
-    @Autowired
-    private HorarioRepository horarioRepository;
+        @Autowired
+        private AlunoRepository alunoRepository;
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+        @Autowired
+        private ProfessorRepository professorRepository;
 
-    @Autowired
-    private ProfessorRepository professorRepository;
+        @Autowired
+        private CaeRepository caeRepository;
 
-    @GetMapping
-    public String perfil(Model model) {
+        @Autowired
+        private HorarioRepository horarioRepository;
 
-        // TESTE TEMPORÁRIO
-        /*Usuario usuario = alunoRepository
-                .findById(2L)
-                .orElse(null);
-        */
+        private Usuario obterUsuarioLogado(
+                        Authentication auth) {
 
-        
-        Usuario usuario = professorRepository
-                .findById(1L)
-                .orElse(null);
-        
+                String prontuario = auth.getName();
 
-        if (usuario == null) {
+                Usuario usuario = professorRepository
+                                .findByProntuario(prontuario)
+                                .orElse(null);
 
-            return "redirect:/";
+                if (usuario == null) {
+                        usuario = alunoRepository
+                                        .findByProntuario(prontuario)
+                                        .orElse(null);
+                }
+
+                if (usuario == null) {
+                        usuario = caeRepository
+                                        .findByProntuario(prontuario)
+                                        .orElse(null);
+                }
+
+                return usuario;
         }
 
-        List<Horario> horarios =
-                buscarHorarios(usuario);
+        @GetMapping
+        public String perfil(Model model, Authentication auth) {
 
-        Map<String, GradeHorarioDTO> grade =
-                montarGrade(horarios, usuario);
+                Usuario usuario = obterUsuarioLogado(auth);
 
-        model.addAttribute("usuario", usuario);
+                if (usuario == null) {
+                        return "redirect:/login";
+                }
 
-        model.addAttribute("grade", grade.values());
+                List<Horario> horarios = buscarHorarios(usuario);
 
-        return "perfil/perfil";
-    }
+                Map<String, GradeHorarioDTO> grade = montarGrade(horarios, usuario);
 
-    private List<Horario> buscarHorarios(
-            Usuario usuario) {
+                model.addAttribute("usuario", usuario);
 
-        if (usuario instanceof Aluno aluno &&
-                aluno.getTurma() != null) {
+                model.addAttribute("grade", grade.values());
 
-            return horarioRepository
-                    .findByTurma(aluno.getTurma());
+                return "perfil/perfil";
         }
 
-        if (usuario instanceof Professor professor) {
+        private List<Horario> buscarHorarios(
+                        Usuario usuario) {
 
-            return horarioRepository
-                    .findByProfessor(professor);
+                if (usuario instanceof Aluno aluno &&
+                                aluno.getTurma() != null) {
+
+                        return horarioRepository
+                                        .findByTurma(aluno.getTurma());
+                }
+
+                if (usuario instanceof Professor professor) {
+
+                        return horarioRepository
+                                        .findByProfessor(professor);
+                }
+
+                return List.of();
         }
 
-        return List.of();
-    }
+        private Map<String, GradeHorarioDTO> montarGrade(
+                        List<Horario> horarios,
+                        Usuario usuario) {
 
-    private Map<String, GradeHorarioDTO> montarGrade(
-            List<Horario> horarios,
-            Usuario usuario) {
+                Map<String, GradeHorarioDTO> gradeMap = new LinkedHashMap<>();
 
-        Map<String, GradeHorarioDTO> gradeMap =
-                new LinkedHashMap<>();
+                for (Horario horario : horarios) {
 
-        for (Horario horario : horarios) {
+                        String faixaHorario = horario.getHoraInicio()
+                                        + " - "
+                                        + horario.getHoraFim();
 
-            String faixaHorario =
-                    horario.getHoraInicio()
-                    + " - "
-                    + horario.getHoraFim();
+                        GradeHorarioDTO dto = gradeMap.computeIfAbsent(
+                                        faixaHorario,
+                                        h -> {
 
-            GradeHorarioDTO dto =
-                    gradeMap.computeIfAbsent(
-                            faixaHorario,
-                            h -> {
+                                                GradeHorarioDTO novo = new GradeHorarioDTO();
 
-                                GradeHorarioDTO novo =
-                                        new GradeHorarioDTO();
+                                                novo.setHorario(
+                                                                faixaHorario);
 
-                                novo.setHorario(
-                                        faixaHorario
-                                );
+                                                return novo;
+                                        });
 
-                                return novo;
-                            }
-                    );
+                        String conteudo = montarConteudoHorario(
+                                        horario,
+                                        usuario);
 
-            String conteudo =
-                    montarConteudoHorario(
-                            horario,
-                            usuario
-                    );
+                        String cor = gerarCorDisciplina(
+                                        horario.getDisciplina()
+                                                        .getNome());
 
-            String cor =
-                    gerarCorDisciplina(
-                            horario.getDisciplina()
-                                   .getNome()
-                    );
+                        preencherDiaSemana(
+                                        dto,
+                                        horario,
+                                        conteudo,
+                                        cor);
+                }
 
-            preencherDiaSemana(
-                    dto,
-                    horario,
-                    conteudo,
-                    cor
-            );
+                return gradeMap;
         }
 
-        return gradeMap;
-    }
+        private String montarConteudoHorario(
+                        Horario horario,
+                        Usuario usuario) {
 
-    private String montarConteudoHorario(
-            Horario horario,
-            Usuario usuario) {
+                StringBuilder texto = new StringBuilder();
 
-        StringBuilder texto =
-                new StringBuilder();
+                texto.append(
+                                horario.getDisciplina().getNome());
 
-        texto.append(
-                horario.getDisciplina().getNome()
-        );
+                if (horario.getSala() != null) {
 
-        if (horario.getSala() != null) {
+                        texto.append("<br>Sala: ")
+                                        .append(
+                                                        horario.getSala().getNome());
+                }
 
-            texto.append("<br>Sala: ")
-                 .append(
-                         horario.getSala().getNome()
-                 );
+                if (usuario instanceof Aluno &&
+                                horario.getProfessor() != null) {
+
+                        texto.append("<br>Prof. ")
+                                        .append(
+                                                        horario.getProfessor().getNome());
+                }
+
+                return texto.toString();
         }
 
-        if (usuario instanceof Aluno &&
-                horario.getProfessor() != null) {
+        private void preencherDiaSemana(
+                        GradeHorarioDTO dto,
+                        Horario horario,
+                        String conteudo,
+                        String cor) {
 
-            texto.append("<br>Prof. ")
-                 .append(
-                         horario.getProfessor().getNome()
-                 );
+                switch (horario.getDiaSemana()) {
+
+                        case SEGUNDA -> {
+
+                                dto.setSeg(conteudo);
+
+                                dto.setCorSeg(cor);
+                        }
+
+                        case TERCA -> {
+
+                                dto.setTer(conteudo);
+
+                                dto.setCorTer(cor);
+                        }
+
+                        case QUARTA -> {
+
+                                dto.setQua(conteudo);
+
+                                dto.setCorQua(cor);
+                        }
+
+                        case QUINTA -> {
+
+                                dto.setQui(conteudo);
+
+                                dto.setCorQui(cor);
+                        }
+
+                        case SEXTA -> {
+
+                                dto.setSex(conteudo);
+
+                                dto.setCorSex(cor);
+                        }
+                }
         }
 
-        return texto.toString();
-    }
+        private String gerarCorDisciplina(
+                        String nome) {
 
-    private void preencherDiaSemana(
-            GradeHorarioDTO dto,
-            Horario horario,
-            String conteudo,
-            String cor) {
+                String[] cores = {
 
-        switch (horario.getDiaSemana()) {
+                                "#2563eb",
+                                "#dc2626",
+                                "#16a34a",
+                                "#9333ea",
+                                "#ea580c",
+                                "#0891b2",
+                                "#ca8a04",
+                                "#be123c",
+                                "#0f766e",
+                                "#4338ca"
+                };
 
-            case SEGUNDA -> {
+                int index = Math.abs(nome.hashCode())
+                                % cores.length;
 
-                dto.setSeg(conteudo);
-
-                dto.setCorSeg(cor);
-            }
-
-            case TERCA -> {
-
-                dto.setTer(conteudo);
-
-                dto.setCorTer(cor);
-            }
-
-            case QUARTA -> {
-
-                dto.setQua(conteudo);
-
-                dto.setCorQua(cor);
-            }
-
-            case QUINTA -> {
-
-                dto.setQui(conteudo);
-
-                dto.setCorQui(cor);
-            }
-
-            case SEXTA -> {
-
-                dto.setSex(conteudo);
-
-                dto.setCorSex(cor);
-            }
+                return cores[index];
         }
-    }
-
-    private String gerarCorDisciplina(
-            String nome) {
-
-        String[] cores = {
-
-                "#2563eb",
-                "#dc2626",
-                "#16a34a",
-                "#9333ea",
-                "#ea580c",
-                "#0891b2",
-                "#ca8a04",
-                "#be123c",
-                "#0f766e",
-                "#4338ca"
-        };
-
-        int index =
-                Math.abs(nome.hashCode())
-                % cores.length;
-
-        return cores[index];
-    }
 }

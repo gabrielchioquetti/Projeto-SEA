@@ -381,7 +381,7 @@ button:hover {
 #container{
     display:flex;
     margin-top:153px;
-    min-height:calc(100vh - 153px);
+    min-height:100vh;
     align-items: stretch;
 }
 
@@ -480,6 +480,7 @@ button:hover {
 
 .logout{
     margin-top:20px;
+    margin-left: 50px;
 }
 
 .logout a{
@@ -1228,4 +1229,33 @@ button:hover {
 
 .btn-pdf-icon:hover{
     background:#15521f;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    padding: 15px 20px;
+    border-radius: 8px;
+
+    color: white;
+    font-weight: 500;
+
+    z-index: 9999;
+
+    opacity: 1;
+    transition: opacity 0.5s ease,
+                transform 0.5s ease;
+
+    transform: translateY(0);
+}
+
+.toast-success {
+    background-color: #16a34a;
+}
+
+.toast-hide {
+    opacity: 0;
+    transform: translateY(-20px);
 }
